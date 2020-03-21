@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>All Notifications</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="9.5">
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img src="../../../assets/images/fire-notification.png">
+          </ion-thumbnail>
+          <ion-label>
+            <h3 style="color: brown;">Rafsun Jany Arman</h3>
+            <p style="font-weight: 500;display: inline;">Status: </p><p style="display: inline;color: red;">WARNING</p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col size="2.5" align-self-center>
+        <ion-button (click)="showPopover($event, '12')" class="img-button-red" fill="clear"><img width="24px" height="24px" src="../../assets/icon/more_vert-black-48dp.svg" alt=""></ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item></ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="9.5">
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <img src="../../../assets/images/fire-water-notification.jpg">
+          </ion-thumbnail>
+          <ion-label>
+            <h3 style="color: brown;">Fatima Nishat</h3>
+            <p style="font-weight: 500;display: inline;">Status: </p><p style="display: inline;color: green;">Solved</p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col size="2.5" align-self-center>
+        <ion-button (click)="showPopover($event, '13')" class="img-button-green" fill="clear"><img width="24px" height="24px" src="../../assets/icon/more_vert-black-48dp.svg" alt=""></ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

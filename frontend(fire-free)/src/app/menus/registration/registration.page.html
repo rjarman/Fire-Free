@@ -1,0 +1,66 @@
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="/"></ion-back-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+  
+    
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col size="10">
+          <ion-card style="background-color: #ffffff;">
+            <img src="../../../assets/images/registration-menu.jpeg"/>
+            <ion-card-content>
+              <ion-grid>
+                <ion-row class="align-items-start">
+                  <ion-col size="12" align-self-start>
+                    <ion-item>
+                      <ion-label position="floating">Consumer's Name</ion-label>
+                      <ion-input #consumerName></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="align-items-start">
+                  <ion-col size="12">
+                    <ion-item>
+                      <ion-label position="floating">Contact Number</ion-label>
+                      <ion-input #contactNumber></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="align-items-start">
+                  <ion-col size="12">
+                    <ion-item>
+                      <ion-label position="floating">Area Code</ion-label>
+                      <ion-input #areaCode></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="align-items-start">
+                  <ion-col size="12">
+                    <ion-item>
+                      <ion-label position="floating">Amount of Robot(BdT)</ion-label>
+                      <ion-input #amountOfRobot></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="align-items-start">
+                  <ion-col size="12">
+                    <ion-item>
+                      <ion-label position="floating">Code of Robot</ion-label>
+                      <ion-input #codeOfRobot></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+          </ion-card>
+          <ion-button id="register" expand="block" (click)="setRegisterData(consumerName.value, contactNumber.value, areaCode.value, amountOfRobot.value, codeOfRobot.value)">Register</ion-button>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-content>

@@ -1,0 +1,22 @@
+#######################################
+# Syntax Coloring Map For Home_Automation
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Fire_Free	KEYWORD1	Fire_Free
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+init	KEYWORD2
+sendToServer	KEYWORD2
+soundBuzzer	KEYWORD2
+get_MQ2_digital	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
