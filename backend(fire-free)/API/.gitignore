@@ -1,3 +1,6 @@
 node_modules
 package-lock.json
 .env
+public/adminsPhotos/*
+public/customerPhotos/*
+public/NodeData/*
