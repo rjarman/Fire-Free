@@ -2,8 +2,8 @@ const app = require('./src/app');
 const http = require('http');
 const localStorage = require('./models/localStorage');
 
-// const port = process.env.PORT || 3000;
-const port = 80;
+const port = process.env.PORT || 3000;
+// const port = 80;
 
 app.set('port', port);
 

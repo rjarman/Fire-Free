@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RegistrationService } from '../services/registration.service';
+import { RegistrationService } from '../../services/registration.service';
 import { Registration } from 'src/app/shared/registration';
 import { ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';

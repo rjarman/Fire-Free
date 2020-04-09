@@ -13,12 +13,20 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const formidable = require('formidable');
 const cors = require('cors');
+const mongodb = require('mongodb');
 const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
 const localStorage = require('../models/localStorage');
+const dataStructures = require('../models/dataStructures');
+const databaseFunction = require('../models/db');
+const encryption_decryption = require('../miscellaneous/encryption');
+const mongodbClient = mongodb.MongoClient;
+const DATABASE_URL = process.env.DATABASE_URL_OFFLINE;
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
@@ -42,6 +50,10 @@ app.use(cors({
     origin: '*',
     credentials: true
 }));
+
+var publicDir = require('path').join(__dirname,'../public/');
+// console.log(publicDir);
+app.use(express.static(publicDir));
 
 /***
  *     _______ _________ _______  _______      _______  _______  _______  _______ 
@@ -93,6 +105,150 @@ app.get('/RklSRS1GUkVF=2', (req, res, next) => {
         status: 'success',
         data: data
     });
+});
+
+/***
+ *     _        _______  _______ _________ _       
+ *    ( \      (  ___  )(  ____ \\__   __/( (    /|
+ *    | (      | (   ) || (    \/   ) (   |  \  ( |
+ *    | |      | |   | || |         | |   |   \ | |
+ *    | |      | |   | || | ____    | |   | (\ \) |
+ *    | |      | |   | || | \_  )   | |   | | \   |
+ *    | (____/\| (___) || (___) |___) (___| )  \  |
+ *    (_______/(_______)(_______)\_______/|/    )_)
+ *                                                 
+ */
+
+app.post('/RklSRS1GUkVF=login', (req, res, next) => {
+    var loginData = new dataStructures.Login(req.body);
+    mongodbClient.connect(DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+        if(err){
+            console.log(`connection failed to "${process.env.DATABASE_NAME}!"`);
+            return;
+        }else {
+            console.log(`successfully connected to "${process.env.DATABASE_NAME}"!`);
+        }
+        
+        const db = client.db(process.env.DATABASE_NAME);
+        const collection = db.collection(process.env.ADMINS_COLLECTION);
+
+        collection.find({email: {$eq: loginData.email}}).toArray((err, result) => {
+            if(err){
+                console.log(`"${loginData.email}" doesn't match with the API key!`);
+            }else{
+                if(result.length === 0) {
+                    res.status(200).json({
+                        data: loginData.email,
+                        status: '!registered'
+                    });
+                }else {
+                    if(encryption_decryption.decryption(Buffer.from(JSON.parse(result[0].password))) === loginData.password){
+                        res.status(200).json({
+                            data: loginData.email,
+                            status: 'ok'
+                        });
+                    }else {
+                        res.status(200).json({
+                            data: loginData.email,
+                            status: '!matched'
+                        });
+                    }
+                    
+                }
+            }
+        });
+    });
+});
+
+/***
+ *     _______ _________ _______  _                 _______ 
+ *    (  ____ \\__   __/(  ____ \( (    /||\     /|(  ____ )
+ *    | (    \/   ) (   | (    \/|  \  ( || )   ( || (    )|
+ *    | (_____    | |   | |      |   \ | || |   | || (____)|
+ *    (_____  )   | |   | | ____ | (\ \) || |   | ||  _____)
+ *          ) |   | |   | | \_  )| | \   || |   | || (      
+ *    /\____) |___) (___| (___) || )  \  || (___) || )      
+ *    \_______)\_______/(_______)|/    )_)(_______)|/       
+ *                                                          
+ */
+
+app.post('/RklSRS1GUkVF=signup', (req, res, next) => {
+
+    var form = new formidable.IncomingForm();
+    var count = 0;
+    var data = {};
+    form.parse(req);
+    form.on('fileBegin', (name, file) => {
+        file.path = `${__dirname}/../public/adminsPhotos/${file.name}`;
+    });
+    form.on('field', (fieldName, fieldValue) => {
+        switch (fieldName) {
+            case 'imagePath':
+                Object.assign(data, {imagePath: JSON.parse(fieldValue)});
+                break;
+            case 'userName':
+                Object.assign(data, {userName: JSON.parse(fieldValue)});
+                break;
+            case 'email':
+                Object.assign(data, {email: JSON.parse(fieldValue)});
+                break;
+            case 'password':
+                Object.assign(data, {password: JSON.parse(fieldValue)});
+                break;
+        }
+        if (count === 0 && Object.keys(data).length >= 4) {
+            var signupData = new dataStructures.Signup(data);
+            console.log(signupData);
+
+            mongodbClient.connect(DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+                if(err){
+                    console.log(`connection failed to "${process.env.DATABASE_NAME}!"`);
+                    return;
+                }else {
+                    console.log(`successfully connected to "${process.env.DATABASE_NAME}"!`);
+                }
+                
+                const db = client.db(process.env.DATABASE_NAME);
+                const collection = db.collection(process.env.ADMINS_COLLECTION);
+        
+                collection.find({email: {$eq: signupData.email}}).toArray((err, result) => {
+                    if(err){
+                        console.log(`"${signupData.email}" doesn't match with the API key!`);
+                    }else{
+                        if(result.length === 0) {
+                            databaseFunction.doSignup(signupData);
+                            res.status(201).json({
+                                data: signupData.email,
+                                status: 'ok'
+                            });
+                        }else {
+                            res.status(201).json({
+                                data: signupData.email,
+                                status: 'registered'
+                            });
+                        }
+                    }
+                });
+            });
+            count++;
+        }
+    });
+});
+
+/***
+ *     _______  _______  _______ _________ _______ _________ _______  _______ __________________ _______  _       
+ *    (  ____ )(  ____ \(  ____ \\__   __/(  ____ \\__   __/(  ____ )(  ___  )\__   __/\__   __/(  ___  )( (    /|
+ *    | (    )|| (    \/| (    \/   ) (   | (    \/   ) (   | (    )|| (   ) |   ) (      ) (   | (   ) ||  \  ( |
+ *    | (____)|| (__    | |         | |   | (_____    | |   | (____)|| (___) |   | |      | |   | |   | ||   \ | |
+ *    |     __)|  __)   | | ____    | |   (_____  )   | |   |     __)|  ___  |   | |      | |   | |   | || (\ \) |
+ *    | (\ (   | (      | | \_  )   | |         ) |   | |   | (\ (   | (   ) |   | |      | |   | |   | || | \   |
+ *    | ) \ \__| (____/\| (___) |___) (___/\____) |   | |   | ) \ \__| )   ( |   | |   ___) (___| (___) || )  \  |
+ *    |/   \__/(_______/(_______)\_______/\_______)   )_(   |/   \__/|/     \|   )_(   \_______/(_______)|/    )_)
+ *                                                                                                                
+ */
+
+app.post('/RklSRS1GUkVF=registration', (req, res, next) => {
+    console.log('registrations data: ' + req.body);
 });
 
 /***

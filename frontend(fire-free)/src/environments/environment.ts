@@ -3,11 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
-};
-
-export const URL = {
-  registrationURL: 'http://localhost:3000/menus/registration'
+  production: false,
+  custom: {
+    LOGIN_URL: 'http://localhost:3000/RklSRS1GUkVF=login',
+    SIGNUP_URL: 'http://localhost:3000/RklSRS1GUkVF=signup',
+    REGISTRATION_URL: 'http://localhost:3000/RklSRS1GUkVF=registration'
+  }
 };
 
 
