@@ -10,5 +10,12 @@ module.exports = {
     Login: function login(data) {
         this.email = data.email;
         this.password = data.password;
+    },
+    Consumer: function consumer(data) {
+        this.imagePath = data.imagePath[0];
+        this.consumerName = data.consumerName;
+        this.email = data.email;
+        this.contactNumber = data.contactNumber;
+        this.macAddress = data.macAddress;
     }
 };

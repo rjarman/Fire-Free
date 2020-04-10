@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
-import { FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { Login } from '../shared/login';
-import { CookieService } from 'ngx-cookie-service';
+import { FormBuilder, Validators } from '@angular/forms';
 import { RegularExpressionList } from '../shared/validator';
+import { FormService } from '../services/form.service';
+import { FormDataFormatter } from '../shared/formDataFormatter';
 
 @Component({
   selector: 'app-auth',
@@ -35,18 +33,20 @@ export class AuthPage implements OnInit {
     profile: ['', [Validators.required, Validators.pattern(RegularExpressionList.regExp.image)]]
   });
 
-  constructor(private authService: AuthService, private router: Router, private cookieService: CookieService,
-              private formBuilder: FormBuilder) {
-                this.isRegistered = false;
+  constructor(
+    private formBuilder: FormBuilder,
+    private formService: FormService
+  ) {
+    this.isRegistered = false;
 
-                this.isValidEmail = false;
-                this.isNotValidEmail = false;
-                this.isLoadingEmail = false;
+    this.isValidEmail = false;
+    this.isNotValidEmail = false;
+    this.isLoadingEmail = false;
 
-                this.isValidUserName = false;
-                this.isNotValidUserName = false;
-                this.isLoadingUserName = false;
-              }
+    this.isValidUserName = false;
+    this.isNotValidUserName = false;
+    this.isLoadingUserName = false;
+  }
   ngOnInit() { }
   public toRegister() {
     this.isRegistered = false;
@@ -70,11 +70,10 @@ export class AuthPage implements OnInit {
     this.registerForm.reset();
   }
   public checkLogin() {
-    const loginData: Login = {email: this.loginForm.value.email, password: this.loginForm.value.password};
-    this.authService.login(loginData);
+    this.formService.formHandler(new FormDataFormatter(this.loginForm, null, 'login', false));
   }
   public checkRegister() {
-    this.authService.register(this.registerForm, this.profilePhoto);
+    this.formService.formHandler(new FormDataFormatter(this.registerForm, this.profilePhoto, 'signup', true));
   }
 
   setImages(event) {
@@ -83,66 +82,24 @@ export class AuthPage implements OnInit {
     }
   }
 
-  focused(valueType: string, value: string) {
-    if (valueType === 'email') {
-      this.isValidEmail = false;
-      this.isNotValidEmail = false;
-      this.isLoadingEmail = true;
+  public focused(valueType: string, value: string) {
+    this.formService.focused(valueType, value);
 
-      const regularExpressionList = new RegExp(RegularExpressionList.regExp.email);
-      if (regularExpressionList.test(value)) {
-        this.isLoadingEmail = false;
-        this.isValidEmail = true;
-        this.isNotValidEmail = false;
-      } else {
-        this.isValidEmail = false;
-      }
-
-    } else if (valueType === 'userName') {
-      this.isValidUserName = false;
-      this.isNotValidUserName = false;
-      this.isLoadingUserName = true;
-
-      const regularExpressionList = new RegExp(RegularExpressionList.regExp.userName);
-      if (regularExpressionList.test(value)) {
-        this.isLoadingUserName = false;
-        this.isValidUserName = true;
-        this.isNotValidUserName = false;
-      } else {
-        this.isValidUserName = false;
-      }
-    }
+    this.isValidEmail = this.formService.getAllVariables('log-reg').isValidEmail;
+    this.isNotValidEmail = this.formService.getAllVariables('log-reg').isNotValidEmail;
+    this.isLoadingEmail = this.formService.getAllVariables('log-reg').isLoadingEmail;
+    this.isValidUserName = this.formService.getAllVariables('log-reg').isValidUserName;
+    this.isNotValidUserName = this.formService.getAllVariables('log-reg').isNotValidUserName;
+    this.isLoadingUserName = this.formService.getAllVariables('log-reg').isLoadingUserName;
   }
+  public notFocused(valueType: string, value: string) {
+    this.formService.notFocused(valueType, value);
 
-  notFocused(valueType: string, value: string) {
-    if (valueType === 'email') {
-      this.isValidEmail = false;
-      this.isNotValidEmail = false;
-      this.isLoadingEmail = false;
-
-      const regularExpressionList = new RegExp(RegularExpressionList.regExp.email);
-      if (regularExpressionList.test(value)) {
-        this.isValidEmail = true;
-        this.isNotValidEmail = false;
-      } else {
-        this.isValidEmail = false;
-        this.isNotValidEmail = true;
-      }
-
-    } else if (valueType === 'userName') {
-      this.isValidUserName = false;
-      this.isNotValidUserName = false;
-      this.isLoadingUserName = false;
-
-      const regularExpressionList = new RegExp(RegularExpressionList.regExp.userName);
-      if (regularExpressionList.test(value)) {
-        this.isValidUserName = true;
-        this.isNotValidUserName = false;
-      } else {
-        this.isValidUserName = false;
-        this.isNotValidUserName = true;
-      }
-
-    }
+    this.isValidEmail = this.formService.getAllVariables('log-reg').isValidEmail;
+    this.isNotValidEmail = this.formService.getAllVariables('log-reg').isNotValidEmail;
+    this.isLoadingEmail = this.formService.getAllVariables('log-reg').isLoadingEmail;
+    this.isValidUserName = this.formService.getAllVariables('log-reg').isValidUserName;
+    this.isNotValidUserName = this.formService.getAllVariables('log-reg').isNotValidUserName;
+    this.isLoadingUserName = this.formService.getAllVariables('log-reg').isLoadingUserName;
   }
 }

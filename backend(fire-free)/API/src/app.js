@@ -120,44 +120,63 @@ app.get('/RklSRS1GUkVF=2', (req, res, next) => {
  */
 
 app.post('/RklSRS1GUkVF=login', (req, res, next) => {
-    var loginData = new dataStructures.Login(req.body);
-    mongodbClient.connect(DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
-        if(err){
-            console.log(`connection failed to "${process.env.DATABASE_NAME}!"`);
-            return;
-        }else {
-            console.log(`successfully connected to "${process.env.DATABASE_NAME}"!`);
-        }
-        
-        const db = client.db(process.env.DATABASE_NAME);
-        const collection = db.collection(process.env.ADMINS_COLLECTION);
 
-        collection.find({email: {$eq: loginData.email}}).toArray((err, result) => {
-            if(err){
-                console.log(`"${loginData.email}" doesn't match with the API key!`);
-            }else{
-                if(result.length === 0) {
-                    res.status(200).json({
-                        data: loginData.email,
-                        status: '!registered'
-                    });
+    var form = new formidable.IncomingForm();
+    var count = 0;
+    var data = {};
+    form.parse(req);
+    form.on('field', (fieldName, fieldValue) => {
+        switch (fieldName) {
+            case 'email':
+                Object.assign(data, {email: JSON.parse(fieldValue)});
+                break;
+            case 'password':
+                Object.assign(data, {password: JSON.parse(fieldValue)});
+                break;
+        }
+        if (count === 0 && Object.keys(data).length >= 2) {
+            var loginData = new dataStructures.Login(data);
+            mongodbClient.connect(DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+                if(err){
+                    console.log(`connection failed to "${process.env.DATABASE_NAME}!"`);
+                    return;
                 }else {
-                    if(encryption_decryption.decryption(Buffer.from(JSON.parse(result[0].password))) === loginData.password){
-                        res.status(200).json({
-                            data: loginData.email,
-                            status: 'ok'
-                        });
-                    }else {
-                        res.status(200).json({
-                            data: loginData.email,
-                            status: '!matched'
-                        });
-                    }
-                    
+                    console.log(`successfully connected to "${process.env.DATABASE_NAME}"!`);
                 }
-            }
-        });
+                
+                const db = client.db(process.env.DATABASE_NAME);
+                const collection = db.collection(process.env.ADMINS_COLLECTION);
+
+                collection.find({email: {$eq: loginData.email}}).toArray((err, result) => {
+                    if(err){
+                        console.log(`"${loginData.email}" doesn't match with the API key!`);
+                    }else{
+                        if(result.length === 0) {
+                            res.status(200).json({
+                                data: loginData.email,
+                                status: '!registered'
+                            });
+                        }else {
+                            if(encryption_decryption.decryption(Buffer.from(JSON.parse(result[0].password))) === loginData.password){
+                                res.status(200).json({
+                                    data: loginData.email,
+                                    status: 'ok'
+                                });
+                            }else {
+                                res.status(200).json({
+                                    data: loginData.email,
+                                    status: '!matched'
+                                });
+                            }
+                            
+                        }
+                    }
+                });
+            });
+            count++;
+        }
     });
+    
 });
 
 /***
@@ -248,7 +267,69 @@ app.post('/RklSRS1GUkVF=signup', (req, res, next) => {
  */
 
 app.post('/RklSRS1GUkVF=registration', (req, res, next) => {
-    console.log('registrations data: ' + req.body);
+    // console.log('registrations data: ' + req.body);
+
+    var form = new formidable.IncomingForm();
+    var count = 0;
+    var data = {};
+    form.parse(req);
+    form.on('fileBegin', (name, file) => {
+        file.path = `${__dirname}/../public/customerPhotos/${file.name}`;
+    });
+    form.on('field', (fieldName, fieldValue) => {
+        switch (fieldName) {
+            case 'imagePath':
+                Object.assign(data, {imagePath: JSON.parse(fieldValue)});
+                break;
+            case 'consumerName':
+                Object.assign(data, {consumerName: JSON.parse(fieldValue)});
+                break;
+            case 'email':
+                Object.assign(data, {email: JSON.parse(fieldValue)});
+                break;
+            case 'contactNumber':
+                Object.assign(data, {contactNumber: JSON.parse(fieldValue)});
+                break;
+            case 'macAddress':
+                Object.assign(data, {macAddress: JSON.parse(fieldValue)});
+                break;
+        }
+        if (count === 0 && Object.keys(data).length >= 5) {
+            var consumer = new dataStructures.Consumer(data);
+
+            mongodbClient.connect(DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+                if(err){
+                    console.log(`connection failed to "${process.env.DATABASE_NAME}!"`);
+                    return;
+                }else {
+                    console.log(`successfully connected to "${process.env.DATABASE_NAME}"!`);
+                }
+                
+                const db = client.db(process.env.DATABASE_NAME);
+                const collection = db.collection(process.env.CUSTOMERS_COLLECTION);
+        
+                collection.find({macAddress: {$eq: consumer.macAddress}}).toArray((err, result) => {
+                    if(err){
+                        console.log(`"${consumer.macAddress}" doesn't match with the API key!`);
+                    }else{
+                        if(result.length === 0) {
+                            databaseFunction.doRegisters(consumer);
+                            res.status(201).json({
+                                data: consumer.email,
+                                status: 'ok'
+                            });
+                        }else {
+                            res.status(200).json({
+                                data: result[0].email,
+                                status: 'registered'
+                            });
+                        }
+                    }
+                });
+            });
+            count++;
+        }
+    });
 });
 
 /***

@@ -9,7 +9,6 @@ export class MenusPage implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

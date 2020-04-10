@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RegistrationService } from '../../services/registration.service';
-import { Registration } from 'src/app/shared/registration';
-import { ToastController } from '@ionic/angular';
-import { Subscription } from 'rxjs';
+import { FormBuilder, Validators } from '@angular/forms';
+import { RegularExpressionList } from 'src/app/shared/validator';
+import { FormService } from 'src/app/services/form.service';
+import { FormDataFormatter } from 'src/app/shared/formDataFormatter';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,60 +12,121 @@ import { Router } from '@angular/router';
 })
 export class RegistrationPage implements OnInit, OnDestroy {
 
-  private subscription: Subscription;
+  isValidEmail: boolean;
+  isNotValidEmail: boolean;
+  isLoadingEmail: boolean;
 
-  private sendToServerData: Registration;
+  isValidConsumerName: boolean;
+  isNotValidConsumerName: boolean;
+  isLoadingConsumerName: boolean;
 
-  constructor(private registrationService: RegistrationService, private toastController: ToastController, private router: Router) {
-    this.subscription = this.registrationService.getStatus.subscribe( status => {
-      if (status === 'success') {
-        this.presentToast('<ion-icon name="checkbox-outline"></ion-icon> New user added successfully!');
-        this.router.navigated = false;
-        this.router.navigate(['/']);
-      } else {
-        this.presentToast('<ion-icon name="close"></ion-icon> Failed!');
-      }
-    });
-   }
+  isValidMACAddress: boolean;
+  isNotValidMACAddress: boolean;
+  isLoadingMACAddress: boolean;
+
+  isValidContactNumber: boolean;
+  isNotValidContactNumber: boolean;
+  isLoadingContactNumber: boolean;
+
+  private consumerImage: FileList;
+
+ registrationForm = this.formBuilder.group({
+  consumerName: ['', [Validators.required, Validators.pattern(RegularExpressionList.regExp.consumerName)]],
+  email: ['', [Validators.required, Validators.pattern(RegularExpressionList.regExp.email)]],
+  contactNumber: ['', [Validators.required, Validators.pattern(RegularExpressionList.regExp.contactNumber)]],
+  macAddress: ['', [Validators.required, Validators.pattern(RegularExpressionList.regExp.macAddress)]],
+  profile: ['', [Validators.required, Validators.pattern(RegularExpressionList.regExp.image)]]
+});
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private formService: FormService
+  ) {
+    this.isValidEmail = false;
+    this.isNotValidEmail = false;
+    this.isLoadingEmail = false;
+
+    this.isValidConsumerName = false;
+    this.isNotValidConsumerName = false;
+    this.isLoadingConsumerName = false;
+
+    this.isValidMACAddress = false;
+    this.isNotValidMACAddress = false;
+    this.isLoadingMACAddress = false;
+
+    this.isValidContactNumber = false;
+    this.isNotValidContactNumber = false;
+    this.isLoadingContactNumber = false;
+  }
 
   ngOnInit() {
   }
 
-  private setRegisterData(cName, cNumber, aCode, aOfRobot, cOfRobot) {
-    this.sendToServerData = {
-      consumerName: cName,
-      contactNumber: cNumber,
-      areaCode: +aCode,
-      amountOfRobot: +aOfRobot,
-      codeOfRobot: cOfRobot
-    };
-    this.register(this.sendToServerData);
+  public checkRegistration() {
+    this.formService.formHandler(new FormDataFormatter(this.registrationForm, this.consumerImage, 'consumerReg', true));
+    this.formService.isRedirect.subscribe(isRedirect => {
+      if (!isRedirect) {
+        this.isValidMACAddress = false;
+        this.isNotValidMACAddress = true;
+        this.isLoadingMACAddress = false;
+      }
+    });
   }
 
-  private register(sendToServerData) {
-    switch (this.registrationService.validation(sendToServerData)) {
-      case 'ok': {
-        this.registrationService.doRegistration(sendToServerData);
-        break;
-      }
-      case 'error': {
-        this.presentToast('Consumer\'s Name should be atleast 4 letters,!' +
-        'Contact Number, Area Code, Amount of Robot, Code of Robot should be in \"+8801*********\", \"****\", ' +
-        '\"***\" or \"****\", \"#******\" formate respectively!');
-        break;
-      }
+  set setImage(event: any) {
+    if (event.target.files.length > 0) {
+      this.consumerImage = event.target.files;
+    } else {
+      this.consumerImage = null;
     }
   }
-  async presentToast(text: string) {
-    const toast = await this.toastController.create({
-      message: text,
-      duration: 2000
-    });
-    toast.present();
+
+  get setImage() {
+    return this.consumerImage;
+  }
+
+  public focused(valueType: string, value: string) {
+    this.formService.focused(valueType, value);
+
+    this.isValidEmail = this.formService.getAllVariables('consumerReg').isValidEmail;
+    this.isNotValidEmail = this.formService.getAllVariables('consumerReg').isNotValidEmail;
+    this.isLoadingEmail = this.formService.getAllVariables('consumerReg').isLoadingEmail;
+
+    this.isValidConsumerName = this.formService.getAllVariables('consumerReg').isValidConsumerName;
+    this.isNotValidConsumerName = this.formService.getAllVariables('consumerReg').isNotValidConsumerName;
+    this.isLoadingConsumerName = this.formService.getAllVariables('consumerReg').isLoadingConsumerName;
+
+    this.isValidContactNumber = this.formService.getAllVariables('consumerReg').isValidContactNumber;
+    this.isNotValidContactNumber = this.formService.getAllVariables('consumerReg').isNotValidContactNumber;
+    this.isLoadingContactNumber = this.formService.getAllVariables('consumerReg').isLoadingContactNumber;
+
+    this.isValidMACAddress = this.formService.getAllVariables('consumerReg').isValidMACAddress;
+    this.isNotValidMACAddress = this.formService.getAllVariables('consumerReg').isNotValidMACAddress;
+    this.isLoadingMACAddress = this.formService.getAllVariables('consumerReg').isLoadingMACAddress;
+  }
+
+  public notFocused(valueType: string, value: string) {
+    this.formService.notFocused(valueType, value);
+
+    this.isValidEmail = this.formService.getAllVariables('consumerReg').isValidEmail;
+    this.isNotValidEmail = this.formService.getAllVariables('consumerReg').isNotValidEmail;
+    this.isLoadingEmail = this.formService.getAllVariables('consumerReg').isLoadingEmail;
+
+    this.isValidConsumerName = this.formService.getAllVariables('consumerReg').isValidConsumerName;
+    this.isNotValidConsumerName = this.formService.getAllVariables('consumerReg').isNotValidConsumerName;
+    this.isLoadingConsumerName = this.formService.getAllVariables('consumerReg').isLoadingConsumerName;
+
+    this.isValidContactNumber = this.formService.getAllVariables('consumerReg').isValidContactNumber;
+    this.isNotValidContactNumber = this.formService.getAllVariables('consumerReg').isNotValidContactNumber;
+    this.isLoadingContactNumber = this.formService.getAllVariables('consumerReg').isLoadingContactNumber;
+
+    this.isValidMACAddress = this.formService.getAllVariables('consumerReg').isValidMACAddress;
+    this.isNotValidMACAddress = this.formService.getAllVariables('consumerReg').isNotValidMACAddress;
+    this.isLoadingMACAddress = this.formService.getAllVariables('consumerReg').isLoadingMACAddress;
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.formService.resetAllValidators();
+    this.registrationForm.reset();
   }
-
 }
