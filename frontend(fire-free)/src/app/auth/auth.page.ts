@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { RegularExpressionList } from '../shared/validator';
 import { FormService } from '../services/form.service';
 import { FormDataFormatter } from '../shared/formDataFormatter';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-auth',
@@ -35,9 +36,14 @@ export class AuthPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private formService: FormService
+    private formService: FormService,
+    private cookieService: CookieService
   ) {
-    this.isRegistered = false;
+    if (this.cookieService.get('isLoggedIn') === 'false') {
+      this.isRegistered = true;
+    } else {
+      this.isRegistered = false;
+    }
 
     this.isValidEmail = false;
     this.isNotValidEmail = false;

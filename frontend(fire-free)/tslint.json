@@ -84,6 +84,7 @@
       "page",
       "kebab-case"
     ],
-    "variable-name": false
+    "variable-name": false,
+    "no-string-literal": false
   }
 }

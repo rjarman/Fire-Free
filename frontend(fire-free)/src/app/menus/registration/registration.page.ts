@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { RegularExpressionList } from 'src/app/shared/validator';
 import { FormService } from 'src/app/services/form.service';
 import { FormDataFormatter } from 'src/app/shared/formDataFormatter';
-import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-registration',
@@ -40,7 +40,8 @@ export class RegistrationPage implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private formService: FormService
+    private formService: FormService,
+    private cookieService: CookieService
   ) {
     this.isValidEmail = false;
     this.isNotValidEmail = false;
@@ -63,6 +64,7 @@ export class RegistrationPage implements OnInit, OnDestroy {
   }
 
   public checkRegistration() {
+    this.formService.servedBy = this.cookieService.get('email');
     this.formService.formHandler(new FormDataFormatter(this.registrationForm, this.consumerImage, 'consumerReg', true));
     this.formService.isRedirect.subscribe(isRedirect => {
       if (!isRedirect) {

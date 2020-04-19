@@ -6,50 +6,62 @@
     <ion-title>All Notifications</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="9.5">
-        <ion-item lines="none">
-          <ion-thumbnail slot="start">
-            <img src="../../../assets/images/fire-notification.png">
-          </ion-thumbnail>
-          <ion-label>
-            <h3 style="color: brown;">Rafsun Jany Arman</h3>
-            <p style="font-weight: 500;display: inline;">Status: </p><p style="display: inline;color: red;">WARNING</p>
-          </ion-label>
-        </ion-item>
-      </ion-col>
-      <ion-col size="2.5" align-self-center>
-        <ion-button (click)="showPopover($event, '12')" class="img-button-red" fill="clear"><img width="24px" height="24px" src="../../assets/icon/more_vert-black-48dp.svg" alt=""></ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12">
-        <ion-item></ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-grid>
-    <ion-row>
-      <ion-col size="9.5">
-        <ion-item lines="none">
-          <ion-thumbnail slot="start">
-            <img src="../../../assets/images/fire-water-notification.jpg">
-          </ion-thumbnail>
-          <ion-label>
-            <h3 style="color: brown;">Fatima Nishat</h3>
-            <p style="font-weight: 500;display: inline;">Status: </p><p style="display: inline;color: green;">Solved</p>
-          </ion-label>
-        </ion-item>
-      </ion-col>
-      <ion-col size="2.5" align-self-center>
-        <ion-button (click)="showPopover($event, '13')" class="img-button-green" fill="clear"><img width="24px" height="24px" src="../../assets/icon/more_vert-black-48dp.svg" alt=""></ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content pullingIcon="null" refreshingSpinner="bubbles"></ion-refresher-content>
+  </ion-refresher>
+  <div *ngFor="let notificationDatum of notificationData">
+    <ion-card style="margin-bottom: -10px;" *ngIf="isSolved(notificationDatum.hardwareState)">
+      <div style="width: 4px;height: 86px;position: relative;float: right;border-bottom: 100%;background-color: #DB214C;"></div>
+      <div id='{{notificationDatum.consumerData.macAddress}}' style="width: 0px;height: 86px;position: sticky;position: -webkit-sticky;z-index: 99;float: left;border-bottom: 100%;background-color: #B8C480;" > 
+        <img (click)="setAsSolved(notificationDatum.consumerData.macAddress)" src="../../../assets/icon/user-check-solid.svg" width="30px" height="30px" style="margin-top: 28px;">
+      </div>
+      <ion-card-content style="padding: 0;">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="9.5" style="padding: 0;" (click)="warning(notificationDatum.consumerData.macAddress)">
+              <ion-item lines="none">
+                <ion-avatar slot="start" style="width: 60px;height: 60px;">
+                  <img src="{{consumerImagePath + notificationDatum.consumerData.imagePath}}">
+                </ion-avatar>
+                <ion-label>
+                  <h3>{{notificationDatum.consumerData.consumerName}}</h3>
+                  <p style="font-size: 10px;color: #B0B3B5;">MAC Address: <em>{{notificationDatum.consumerData.macAddress}}</em></p>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col size="2.5" align-self-center style="padding: 0;">
+              <ion-button (click)="showAbout(notificationDatum.consumerData, notificationDatum.hardwareData, notificationDatum.hardwareState)" class="img-button-red" fill="clear"><img width="24px" height="24px" src="../../assets/icon/info-circle-solid.svg" alt=""></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <hr style="margin-top: 20px;margin-bottom: 10px;">
+  <div *ngFor="let notificationDatum of notificationData">
+      <ion-card style="margin-bottom: -10px;" *ngIf="!isSolved(notificationDatum.hardwareState)">
+        <div style="width: 4px;height: 86px;position: relative;float: left;border-bottom: 100%;background-color: #157145;"></div>
+        <ion-card-content style="padding: 0;">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="9.5" style="padding: 0;">
+                <ion-item lines="none">
+                  <ion-avatar slot="start" style="width: 60px;height: 60px;">
+                    <img src="{{consumerImagePath + notificationDatum.consumerData.imagePath}}">
+                  </ion-avatar>
+                  <ion-label>
+                    <h3>{{notificationDatum.consumerData.consumerName}}</h3>
+                    <p style="font-size: 10px;color: #B0B3B5;">MAC Address: <em>{{notificationDatum.consumerData.macAddress}}</em></p>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col size="2.5" align-self-center style="padding: 0;">
+                <ion-button (click)="showAbout(notificationDatum.consumerData, notificationDatum.hardwareData, notificationDatum.hardwareState, notificationDatum.solvedBy)" class="img-button-green" fill="clear"><img width="24px" height="24px" src="../../assets/icon/info-circle-solid.svg" alt=""></ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+  </div>
 </ion-content>

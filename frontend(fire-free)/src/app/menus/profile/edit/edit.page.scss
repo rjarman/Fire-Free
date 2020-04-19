@@ -1,0 +1,41 @@
+// background color variables
+$card-background-color: #1B5259;
+
+// text color variables
+$text-color-1: #6FEBE1;
+
+// horizontal-line color variables
+$hr-line-color: #B0B3B5;
+
+// mixins
+@mixin headerBtnPosition($float) {
+    position: absolute;
+    float: $float;
+}
+
+ion-content {
+    --ion-background-color: whitesmoke;
+
+    #head {
+        position: relative;
+        color: $text-color-1;
+        #backBtn {
+            @include headerBtnPosition(left);
+        }
+        #editBtn {
+            @include headerBtnPosition(right);
+            margin-top: 2vh;
+            margin-left: 80vw;
+        }
+    }
+
+    #profile {
+        width: 100%;
+        filter: brightness(70%);
+    }
+
+    hr {
+        border-top: 1px solid $hr-line-color;
+        width: 95%;
+    }
+}

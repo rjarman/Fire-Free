@@ -11,3 +11,4 @@ export class FormDataFormatter {
         this.hasImage = hasImage;
     }
 }
+

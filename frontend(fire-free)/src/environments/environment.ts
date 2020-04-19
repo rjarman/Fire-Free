@@ -7,7 +7,21 @@ export const environment = {
   custom: {
     LOGIN_URL: 'http://localhost:3000/RklSRS1GUkVF=login',
     SIGNUP_URL: 'http://localhost:3000/RklSRS1GUkVF=signup',
-    REGISTRATION_URL: 'http://localhost:3000/RklSRS1GUkVF=registration'
+    REGISTRATION_URL: 'http://localhost:3000/RklSRS1GUkVF=registration',
+    ADMIN_URL: 'http://localhost:3000/RklSRS1GUkVF=admin',
+    VIEW_URL: 'http://localhost:3000/RklSRS1GUkVF=viewerData',
+    NOTIFICATION_URL: 'http://localhost:3000/RklSRS1GUkVF=notification',
+    SET_SOLVED_NOTIFICATION_URL: 'http://localhost:3000/RklSRS1GUkVF=solvedNotification',
+    SOCIAL: {
+      FACEBOOK: 'https://facebook.com/rafsunjany.arman.1',
+      BLOG: 'https://cs-mingle.com',
+      GIT: 'https://github.com/rjarman/Fire-Free',
+      LINKEDIN: 'https://linkedin.com'
+    },
+    PATH: {
+      ADMIN_PATH: 'http://localhost:3000/adminsPhotos/',
+      CONSUMER_PATH: 'http://localhost:3000/customerPhotos/'
+    }
   }
 };
 

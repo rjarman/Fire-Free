@@ -2,127 +2,101 @@ import { Injectable } from '@angular/core';
 import { RegularExpressionList } from '../shared/validator';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Login } from '../shared/login';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { FormGroup } from '@angular/forms';
 import { FormDataFormatter } from '../shared/formDataFormatter';
 import { Subject, Observable } from 'rxjs';
+import { DatabaseService } from './database.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormService {
-
-  // Email
-  private _isValidEmail: boolean;
   public get isValidEmail(): boolean {
     return this._isValidEmail;
   }
   public set isValidEmail(value: boolean) {
     this._isValidEmail = value;
   }
-  private _isNotValidEmail: boolean;
   public get isNotValidEmail(): boolean {
     return this._isNotValidEmail;
   }
   public set isNotValidEmail(value: boolean) {
     this._isNotValidEmail = value;
   }
-  private _isLoadingEmail: boolean;
   public get isLoadingEmail(): boolean {
     return this._isLoadingEmail;
   }
   public set isLoadingEmail(value: boolean) {
     this._isLoadingEmail = value;
   }
-
-  // User Name
-  private _isValidUserName: boolean;
   public get isValidUserName(): boolean {
     return this._isValidUserName;
   }
   public set isValidUserName(value: boolean) {
     this._isValidUserName = value;
   }
-  private _isNotValidUserName: boolean;
   public get isNotValidUserName(): boolean {
     return this._isNotValidUserName;
   }
   public set isNotValidUserName(value: boolean) {
     this._isNotValidUserName = value;
   }
-  private _isLoadingUserName: boolean;
   public get isLoadingUserName(): boolean {
     return this._isLoadingUserName;
   }
   public set isLoadingUserName(value: boolean) {
     this._isLoadingUserName = value;
   }
-
-  // Consumer Name
-  private _isValidConsumerName: boolean;
   public get isValidConsumerName(): boolean {
     return this._isValidConsumerName;
   }
   public set isValidConsumerName(value: boolean) {
     this._isValidConsumerName = value;
   }
-  private _isNotValidConsumerName: boolean;
   public get isNotValidConsumerName(): boolean {
     return this._isNotValidConsumerName;
   }
   public set isNotValidConsumerName(value: boolean) {
     this._isNotValidConsumerName = value;
   }
-  private _isLoadingConsumerName: boolean;
   public get isLoadingConsumerName(): boolean {
     return this._isLoadingConsumerName;
   }
   public set isLoadingConsumerName(value: boolean) {
     this._isLoadingConsumerName = value;
   }
-
-  // Contact Number
-  private _isValidContactNumber;
   public get isValidContactNumber() {
     return this._isValidContactNumber;
   }
   public set isValidContactNumber(value) {
     this._isValidContactNumber = value;
   }
-  private _isNotValidContactNumber;
   public get isNotValidContactNumber() {
     return this._isNotValidContactNumber;
   }
   public set isNotValidContactNumber(value) {
     this._isNotValidContactNumber = value;
   }
-  private _isLoadingContactNumber;
   public get isLoadingContactNumber() {
     return this._isLoadingContactNumber;
   }
   public set isLoadingContactNumber(value) {
     this._isLoadingContactNumber = value;
   }
-
-  // MAC Address
-  private _isValidMACAddress;
   public get isValidMACAddress() {
     return this._isValidMACAddress;
   }
   public set isValidMACAddress(value) {
     this._isValidMACAddress = value;
   }
-  private _isNotValidMACAddress;
   public get isNotValidMACAddress() {
     return this._isNotValidMACAddress;
   }
   public set isNotValidMACAddress(value) {
     this._isNotValidMACAddress = value;
   }
-  private _isLoadingMACAddress;
   public get isLoadingMACAddress() {
     return this._isLoadingMACAddress;
   }
@@ -130,14 +104,52 @@ export class FormService {
     this._isLoadingMACAddress = value;
   }
 
-  private redirectStatus = new Subject<boolean>();
-
   constructor(
     private httpClient: HttpClient,
     private cookieService: CookieService,
     private route: Router,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private databaseService: DatabaseService
   ) { }
+  set userEmail(email) {
+    this._userEmail = email;
+  }
+  set servedBy(email) {
+    this._servedBy = email;
+  }
+  get isRedirect(): Observable<boolean> {
+    return this.redirectStatus.asObservable();
+  }
+
+  // Email
+  private _isValidEmail: boolean;
+  private _isNotValidEmail: boolean;
+  private _isLoadingEmail: boolean;
+
+  // User Name
+  private _isValidUserName: boolean;
+  private _isNotValidUserName: boolean;
+  private _isLoadingUserName: boolean;
+
+  // Consumer Name
+  private _isValidConsumerName: boolean;
+  private _isNotValidConsumerName: boolean;
+  private _isLoadingConsumerName: boolean;
+
+  // Contact Number
+  private _isValidContactNumber;
+  private _isNotValidContactNumber;
+  private _isLoadingContactNumber;
+
+  // MAC Address
+  private _isValidMACAddress;
+  private _isNotValidMACAddress;
+  private _isLoadingMACAddress;
+
+  private redirectStatus = new Subject<boolean>();
+
+  private _userEmail;
+  private _servedBy;
 
 /***
  *              _______  _       _________ ______   _______ __________________ _______  _
@@ -182,6 +194,17 @@ export class FormService {
           isValidMACAddress: this.isValidMACAddress,
           isNotValidMACAddress: this.isNotValidMACAddress,
           isLoadingMACAddress: this.isLoadingMACAddress
+        };
+      }
+      case 'admin': {
+        return {
+          isValidUserName: this.isValidUserName,
+          isNotValidUserName: this.isNotValidUserName,
+          isLoadingUserName: this.isLoadingUserName,
+
+          isValidContactNumber: this.isValidContactNumber,
+          isNotValidContactNumber: this.isNotValidContactNumber,
+          isLoadingContactNumber: this.isLoadingContactNumber
         };
       }
     }
@@ -344,23 +367,6 @@ export class FormService {
         }
         break;
       }
-      default: {
-        this.isValidEmail = false;
-        this.isNotValidEmail = false;
-        this.isLoadingEmail = false;
-
-        this.isValidConsumerName = false;
-        this.isNotValidConsumerName = false;
-        this.isLoadingConsumerName = false;
-
-        this.isValidContactNumber = false;
-        this.isNotValidContactNumber = false;
-        this.isLoadingContactNumber = false;
-
-        this.isValidMACAddress = false;
-        this.isNotValidMACAddress = false;
-        this.isLoadingMACAddress = false;
-      }
     }
   }
 
@@ -381,7 +387,7 @@ export class FormService {
   const img = [];
   let tempImage: any;
 
-  if (formData.hasImage) {
+  if (formData.hasImage && formData.formType !== 'admin') {
     tempImage = formData.imageData;
     tempImage = new File(
       tempImage,
@@ -391,6 +397,26 @@ export class FormService {
     img.push(tempImage.name);
     tempFormData.append('images', tempImage);
     tempFormData.append('imagePath', JSON.stringify(img));
+  } else if (formData.formType === 'admin') {
+    if (formData.imageData === 'default' || typeof formData.imageData === 'string') {
+      if (formData.imageData === 'default') {
+        tempImage = 'default';
+      } else {
+        tempImage = formData.imageData;
+      }
+      // tempImage = 'default';
+      tempFormData.append('imagePath', JSON.stringify(tempImage));
+    } else {
+      console.log(formData.imageData);
+      tempImage = formData.imageData;
+      tempImage = new File(
+        tempImage,
+        this._userEmail.split('@')[0] + tempImage[0].name,
+        {type: tempImage[0].type}
+      );
+      tempFormData.append('images', tempImage);
+      tempFormData.append('imagePath', JSON.stringify(tempImage.name));
+    }
   }
 
   switch (formData.formType) {
@@ -412,7 +438,18 @@ export class FormService {
       tempFormData.append('email', JSON.stringify(formData.textData.get('email').value));
       tempFormData.append('contactNumber', JSON.stringify(formData.textData.get('contactNumber').value));
       tempFormData.append('macAddress', JSON.stringify(formData.textData.get('macAddress').value));
+      tempFormData.append('servedBy', JSON.stringify(this._servedBy));
       this.sendToServer(tempFormData, environment.custom.REGISTRATION_URL, formData.formType);
+      break;
+    }
+    case 'admin': {
+      tempFormData.append('email', JSON.stringify(this._userEmail));
+      tempFormData.append('userName', JSON.stringify(formData.textData.get('userName').value));
+      tempFormData.append('gender', JSON.stringify(formData.textData.get('gender').value));
+      tempFormData.append('contactNumber', JSON.stringify(formData.textData.get('contactNumber').value));
+      tempFormData.append('branch', JSON.stringify(formData.textData.get('branch').value));
+      tempFormData.append('designation', JSON.stringify(formData.textData.get('designation').value));
+      this.sendToServer(tempFormData, environment.custom.ADMIN_URL, formData.formType);
       break;
     }
   }
@@ -425,8 +462,13 @@ export class FormService {
       switch (formType) {
         case 'consumerReg': {
           this.showToast('<ion-icon name="checkbox-outline"></ion-icon> New user added successfully!');
-          // this.route.navigated = false;
           this.route.navigate(['/']);
+          break;
+        }
+        case 'admin': {
+          this.showToast('<ion-icon name="checkbox-outline"></ion-icon> Data has been updated successfully!');
+          this.databaseService.fetchData();
+          this.route.navigate(['/menus/profile']);
           break;
         }
         default: {
@@ -460,6 +502,18 @@ export class FormService {
           } else {
             this.showToast('<ion-icon name="close"></ion-icon> Registration Failed!');
           }
+          break;
+        }
+        case 'admin': {
+          if (response.body.status === '!modified') {
+            // console.log('!modified');
+            // this.route.navigate(['/menus/profile']);
+          }
+          break;
+        }
+        default: {
+          this.showToast('Data update failed!');
+          break;
         }
       }
     }
@@ -488,12 +542,6 @@ export class FormService {
     this.isLoadingContactNumber = false;
 
   }
-
-  get isRedirect(): Observable<boolean> {
-    return this.redirectStatus.asObservable();
-  }
-
-
 
   private async showToast(msg: string) {
     const toast = await this.toastController.create({

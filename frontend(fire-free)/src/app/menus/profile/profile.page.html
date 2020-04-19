@@ -1,0 +1,142 @@
+<ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)" *ngIf="isLoadded else skelton">
+  <div id="head">
+    <ion-buttons id="backBtn" slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons id="editBtn" slot="end" (click)="edit()">
+      <strong>EDIT</strong>
+    </ion-buttons>
+  </div>
+  <div id="stickyProfile">
+    <img *ngIf="!isDefaultProfile else default1" id="profile" src="{{defaultImagePath + adminData.imagePath}}" alt="fire-free">
+    <ng-template #default1>
+      <img id="profile" src="../../../assets/icon/profile-1.png" alt="fire-free"></ng-template>
+    <ion-avatar>
+      <img *ngIf="!isDefaultProfile else default2" src="{{defaultImagePath + adminData.imagePath}}" alt="profile">
+      <ng-template #default2>
+        <img src="../../../assets/icon/profile-1.png" alt="profile">
+      </ng-template>
+      <p id="avatarUserName">{{adminData.username}}</p>
+      <p id="avatarUserDesignation" *ngIf='isDesignationSet else noDesignationSet1'>
+        {{adminData.designation}} of {{adminData.branch}}, Bangladesh Fire Service & Civil Defence
+      </p>
+      <ng-template #noDesignationSet1>
+        <p id="avatarUserDesignation">
+          Bangladesh Fire Service & Civil Defence
+        </p>
+      </ng-template>
+    </ion-avatar>
+  </div>
+  <ion-card id="userCard">
+    <ion-card-header>
+      {{adminData.username}}
+    </ion-card-header>
+    <ion-card-subtitle id="des" *ngIf='isDesignationSet else noDesignationSet2'>
+      {{adminData.designation}} of {{adminData.branch}}, Bangladesh Fire Service & Civil Defence
+    </ion-card-subtitle>
+    <ng-template #noDesignationSet2>
+      <ion-card-subtitle id="des">
+        <p style="margin: 0;text-decoration: underline;color: #3880FF;" (click)="edit()">Tap here to add designation</p>
+      </ion-card-subtitle>
+    </ng-template>
+    <hr>
+    <ion-card-subtitle id="em">
+      {{adminData.email}}
+    </ion-card-subtitle>
+    <ion-card-content></ion-card-content>
+  </ion-card>
+    
+  <ion-card id="consumerCard">
+    <ion-card-header>
+      Consumers
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let CD of consumerData;index as i">
+          <ion-col *ngFor="let consumer of CD" size="3" size-sm align-self-center (click)="showAbout(consumer)">
+            <ion-avatar>
+              <img src="{{consumerImagePath + consumer.imagePath}}"  alt="consumerProfile">
+            </ion-avatar>
+            <p class="consumerName" style="width: 70px;margin-bottom: 0;margin-left: .1vw;text-align: center;">
+              {{consumer.frontendStructure.shortConsumerName}}<br>{{consumer.frontendStructure.shortMACAddress}}
+            </p>
+          </ion-col>
+          <hr *ngIf="!isHR[i]">
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<!-- Skeleton screen -->
+<ng-template #skelton>
+  <ion-content style="height: 1000px;">
+    <div id="head">
+      <ion-buttons id="backBtn" slot="start">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+    </div>
+    <ion-list style="padding: 0;">
+      <ion-thumbnail slot="start" style="width: 100%;height: 40vh;">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+    </ion-list>
+
+    <ion-card id="userCard">
+      <ion-card-header>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-card-header>
+      <ion-card-subtitle>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-card-subtitle>
+      <ion-card-subtitle>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-card-subtitle>
+      <ion-card-content></ion-card-content>
+    </ion-card>
+
+    <ion-card id="consumerCard">
+      <ion-card-header>
+        <ion-skeleton-text style="width: 30%;" animated></ion-skeleton-text>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3" size-sm align-self-center>
+              <ion-avatar>
+                <img>
+              </ion-avatar>
+              <p class="consumerName" style="width: 70px;margin-bottom: 0;margin-left: .1vw;text-align: center;">
+                <ion-skeleton-text animated></ion-skeleton-text><ion-skeleton-text animated></ion-skeleton-text>
+              </p>
+            </ion-col>
+            <ion-col size="3" size-sm align-self-center>
+              <ion-avatar>
+                <img>
+              </ion-avatar>
+              <p class="consumerName" style="width: 70px;margin-bottom: 0;margin-left: .1vw;text-align: center;">
+                <ion-skeleton-text animated></ion-skeleton-text><ion-skeleton-text animated></ion-skeleton-text>
+              </p>
+            </ion-col>
+            <ion-col size="3" size-sm align-self-center>
+              <ion-avatar>
+                <img>
+              </ion-avatar>
+              <p class="consumerName" style="width: 70px;margin-bottom: 0;margin-left: .1vw;text-align: center;">
+                <ion-skeleton-text animated></ion-skeleton-text><ion-skeleton-text animated></ion-skeleton-text>
+              </p>
+            </ion-col>
+            <ion-col size="3" size-sm align-self-center>
+              <ion-avatar>
+                <img>
+              </ion-avatar>
+              <p class="consumerName" style="width: 70px;margin-bottom: 0;margin-left: .1vw;text-align: center;">
+                <ion-skeleton-text animated></ion-skeleton-text><ion-skeleton-text animated></ion-skeleton-text>
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+</ng-template>

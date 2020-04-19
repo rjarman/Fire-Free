@@ -1,0 +1,114 @@
+// background color variables
+$body-background-color: #C0DCE8;
+$sticky-background-color: #84778E;
+$card-background-color: #1B5259;
+
+// text color variables
+$text-color-1: #6FEBE1;
+$text-color-2: #94BF69;
+
+// horizontal-line color variables
+$hr-line-color: #B0B3B5;
+
+// mixins
+@mixin headerBtnPosition($float) {
+    position: fixed;
+    float: $float;
+}
+
+@mixin centerStickyAvatar {
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+
+@mixin ionCardHeader($textAlign, $fontSize, $color) {
+    text-align: $textAlign;
+    font-size: $fontSize;
+    color: $color;
+}
+
+ion-content {
+    --ion-background-color: #C0DCE8;
+    overflow: scroll;
+
+    #head {
+        position: relative;
+        color: $text-color-1;
+        #backBtn {
+            @include headerBtnPosition(left);
+        }
+        #editBtn {
+            @include headerBtnPosition(right);
+            margin-top: 2vh;
+            margin-left: 87vw;
+        }
+    }
+
+    #stickyProfile {
+        background-color: $sticky-background-color;
+        #profile {
+            width: 100%;
+            max-height: 450px;
+            margin-bottom: -4px; 
+        }
+        ion-avatar {
+            @include centerStickyAvatar();
+            margin-top: -90px;
+            float: left;
+            z-index: -1000;
+            text-align: center;
+            #avatarUserName {
+                @include centerStickyAvatar();
+                width: 50vw;
+                margin-top: 16px;
+                color: $text-color-1;
+            }
+            #avatarUserDesignation {
+                @include centerStickyAvatar();
+                width: 100vw;
+                margin-top: 35px;
+                font-size: 12px;
+                color: $text-color-2;
+            }
+        }
+    }
+
+    #userCard {
+        background-color: $card-background-color;
+        ion-card-header {
+            @include ionCardHeader(center, 24px, $text-color-1);
+        }
+        ion-card-subtitle {
+            text-align: center;
+            font-size: 14px; 
+        }
+        #des {
+            margin-top: -14px;
+        }
+        #em {
+            color: $text-color-2;
+            margin-bottom: -10px;
+        }
+    }
+
+    #consumerCard {
+        background-color: $card-background-color;
+        ion-card-header {
+            @include ionCardHeader(left, 24px, $text-color-1);
+        }
+        ion-card-content {
+            .consumerName {
+                color: $text-color-2;
+            }
+            .consumerMAC {
+                color: $text-color-1;
+            }
+        }
+    }
+    hr {
+        border-top: 1px solid $hr-line-color;
+        width: 95%;
+    }
+}
