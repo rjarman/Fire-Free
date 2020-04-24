@@ -1,5 +1,7 @@
 {
   "name": "Fire-Free",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

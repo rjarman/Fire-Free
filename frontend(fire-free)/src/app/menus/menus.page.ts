@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverService } from '../services/popover.service';
-import { PopoverData } from '../shared/popoverData';
+import { Popover, CommonValues } from '../shared/popoverData';
 import { DatabaseService } from '../services/database.service';
 
 @Component({
@@ -27,8 +27,8 @@ export class MenusPage implements OnInit {
 
   ngOnInit() { }
 
-  public showPopover(event: any, id: string) {
-    this.popoverService.showPopover(new PopoverData(event, id, 'menu'));
+  public showPopover(evnt: any) {
+    this.popoverService.showPopover(new Popover<CommonValues>({event: evnt, popoverType: 'menu'}));
   }
 
 }

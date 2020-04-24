@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { PopoverPage } from '../menus/popover/popover.page';
-import { PopoverData } from '../shared/popoverData';
+import { CommonValues, Popover } from '../shared/popoverData';
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +10,12 @@ export class PopoverService {
 
   constructor(private popoverController: PopoverController) { }
 
-  async showPopover(data: PopoverData) {
+  async showPopover(commonValues: Popover<CommonValues>, _data?: any) {
     const popover = await this.popoverController.create({
       component: PopoverPage,
-      event: data.event,
+      event: commonValues.popoverData.event,
       translucent: true,
-      componentProps: {id: data.id, popoverType: data.popoverType}
+      componentProps: {popoverType: commonValues.popoverData.popoverType, data: _data}
     });
     return await popover.present();
   }

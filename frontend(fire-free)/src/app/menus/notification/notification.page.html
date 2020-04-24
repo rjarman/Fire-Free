@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header id="notificationHeader">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
@@ -6,7 +6,7 @@
     <ion-title>All Notifications</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content *ngIf="isLoaded else skelton">
   <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
     <ion-refresher-content pullingIcon="null" refreshingSpinner="bubbles"></ion-refresher-content>
   </ion-refresher>
@@ -31,7 +31,7 @@
               </ion-item>
             </ion-col>
             <ion-col size="2.5" align-self-center style="padding: 0;">
-              <ion-button (click)="showAbout(notificationDatum.consumerData, notificationDatum.hardwareData, notificationDatum.hardwareState)" class="img-button-red" fill="clear"><img width="24px" height="24px" src="../../assets/icon/info-circle-solid.svg" alt=""></ion-button>
+              <ion-button (click)="showAbout(notificationDatum)" class="img-button-red" fill="clear"><img width="24px" height="24px" src="../../assets/icon/info-circle-solid.svg" alt=""></ion-button>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -57,7 +57,7 @@
                 </ion-item>
               </ion-col>
               <ion-col size="2.5" align-self-center style="padding: 0;">
-                <ion-button (click)="showAbout(notificationDatum.consumerData, notificationDatum.hardwareData, notificationDatum.hardwareState, notificationDatum.solvedBy)" class="img-button-green" fill="clear"><img width="24px" height="24px" src="../../assets/icon/info-circle-solid.svg" alt=""></ion-button>
+                <ion-button (click)="showAbout(notificationDatum)" class="img-button-green" fill="clear"><img width="24px" height="24px" src="../../assets/icon/info-circle-solid.svg" alt=""></ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -65,3 +65,222 @@
       </ion-card>
   </div>
 </ion-content>
+
+<!-- Skeleton screen -->
+<ng-template #skelton>
+  <ion-content>
+    <div id="head">
+      <ion-buttons id="backBtn" slot="start">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+    </div>
+
+    <ion-card>
+      <div style="width: 4px;height: 89px;position: relative;float: right;border-bottom: 100%;">
+        <ion-skeleton-text style="height: 100%;" animated></ion-skeleton-text>
+      </div>
+      <ion-card-content style="padding: 0;">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="9.5" style="padding: 0;">
+              <ion-item lines="none">
+                <ion-avatar slot="start" style="width: 60px;height: 60px;">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-avatar>
+                <ion-label>
+                  <h3><ion-skeleton-text animated></ion-skeleton-text></h3>
+                  <p style="font-size: 10px;color: #B0B3B5;">MAC Address:<ion-skeleton-text style="width: 10px;" animated></ion-skeleton-text></p>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col size="2.5" align-self-center style="padding: 0;">
+              <ion-button style="pointer-events: none;" fill="clear"><img width="24px" height="24px" src="../../assets/icon/info-circle-solid.svg" alt=""></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <div style="width: 4px;height: 89px;position: relative;float: right;border-bottom: 100%;">
+        <ion-skeleton-text style="height: 100%;" animated></ion-skeleton-text>
+      </div>
+      <ion-card-content style="padding: 0;">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="9.5" style="padding: 0;">
+              <ion-item lines="none">
+                <ion-avatar slot="start" style="width: 60px;height: 60px;">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-avatar>
+                <ion-label>
+                  <h3><ion-skeleton-text animated></ion-skeleton-text></h3>
+                  <p style="font-size: 10px;color: #B0B3B5;">MAC Address:<ion-skeleton-text style="width: 10px;" animated></ion-skeleton-text></p>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col size="2.5" align-self-center style="padding: 0;">
+              <ion-button style="pointer-events: none;" fill="clear"><img width="24px" height="24px" src="../../assets/icon/info-circle-solid.svg" alt=""></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <div style="width: 4px;height: 89px;position: relative;float: right;border-bottom: 100%;">
+        <ion-skeleton-text style="height: 100%;" animated></ion-skeleton-text>
+      </div>
+      <ion-card-content style="padding: 0;">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="9.5" style="padding: 0;">
+              <ion-item lines="none">
+                <ion-avatar slot="start" style="width: 60px;height: 60px;">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-avatar>
+                <ion-label>
+                  <h3><ion-skeleton-text animated></ion-skeleton-text></h3>
+                  <p style="font-size: 10px;color: #B0B3B5;">MAC Address:<ion-skeleton-text style="width: 10px;" animated></ion-skeleton-text></p>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col size="2.5" align-self-center style="padding: 0;">
+              <ion-button style="pointer-events: none;" fill="clear"><img width="24px" height="24px" src="../../assets/icon/info-circle-solid.svg" alt=""></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <div style="width: 4px;height: 89px;position: relative;float: right;border-bottom: 100%;">
+        <ion-skeleton-text style="height: 100%;" animated></ion-skeleton-text>
+      </div>
+      <ion-card-content style="padding: 0;">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="9.5" style="padding: 0;">
+              <ion-item lines="none">
+                <ion-avatar slot="start" style="width: 60px;height: 60px;">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-avatar>
+                <ion-label>
+                  <h3><ion-skeleton-text animated></ion-skeleton-text></h3>
+                  <p style="font-size: 10px;color: #B0B3B5;">MAC Address:<ion-skeleton-text style="width: 10px;" animated></ion-skeleton-text></p>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col size="2.5" align-self-center style="padding: 0;">
+              <ion-button style="pointer-events: none;" fill="clear"><img width="24px" height="24px" src="../../assets/icon/info-circle-solid.svg" alt=""></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <div style="width: 4px;height: 89px;position: relative;float: right;border-bottom: 100%;">
+        <ion-skeleton-text style="height: 100%;" animated></ion-skeleton-text>
+      </div>
+      <ion-card-content style="padding: 0;">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="9.5" style="padding: 0;">
+              <ion-item lines="none">
+                <ion-avatar slot="start" style="width: 60px;height: 60px;">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-avatar>
+                <ion-label>
+                  <h3><ion-skeleton-text animated></ion-skeleton-text></h3>
+                  <p style="font-size: 10px;color: #B0B3B5;">MAC Address:<ion-skeleton-text style="width: 10px;" animated></ion-skeleton-text></p>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col size="2.5" align-self-center style="padding: 0;">
+              <ion-button style="pointer-events: none;" fill="clear"><img width="24px" height="24px" src="../../assets/icon/info-circle-solid.svg" alt=""></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <div style="width: 4px;height: 89px;position: relative;float: right;border-bottom: 100%;">
+        <ion-skeleton-text style="height: 100%;" animated></ion-skeleton-text>
+      </div>
+      <ion-card-content style="padding: 0;">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="9.5" style="padding: 0;">
+              <ion-item lines="none">
+                <ion-avatar slot="start" style="width: 60px;height: 60px;">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-avatar>
+                <ion-label>
+                  <h3><ion-skeleton-text animated></ion-skeleton-text></h3>
+                  <p style="font-size: 10px;color: #B0B3B5;">MAC Address:<ion-skeleton-text style="width: 10px;" animated></ion-skeleton-text></p>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col size="2.5" align-self-center style="padding: 0;">
+              <ion-button style="pointer-events: none;" fill="clear"><img width="24px" height="24px" src="../../assets/icon/info-circle-solid.svg" alt=""></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <div style="width: 4px;height: 89px;position: relative;float: right;border-bottom: 100%;">
+        <ion-skeleton-text style="height: 100%;" animated></ion-skeleton-text>
+      </div>
+      <ion-card-content style="padding: 0;">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="9.5" style="padding: 0;">
+              <ion-item lines="none">
+                <ion-avatar slot="start" style="width: 60px;height: 60px;">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-avatar>
+                <ion-label>
+                  <h3><ion-skeleton-text animated></ion-skeleton-text></h3>
+                  <p style="font-size: 10px;color: #B0B3B5;">MAC Address:<ion-skeleton-text style="width: 10px;" animated></ion-skeleton-text></p>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col size="2.5" align-self-center style="padding: 0;">
+              <ion-button style="pointer-events: none;" fill="clear"><img width="24px" height="24px" src="../../assets/icon/info-circle-solid.svg" alt=""></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <div style="width: 4px;height: 89px;position: relative;float: right;border-bottom: 100%;">
+        <ion-skeleton-text style="height: 100%;" animated></ion-skeleton-text>
+      </div>
+      <ion-card-content style="padding: 0;">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="9.5" style="padding: 0;">
+              <ion-item lines="none">
+                <ion-avatar slot="start" style="width: 60px;height: 60px;">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-avatar>
+                <ion-label>
+                  <h3><ion-skeleton-text animated></ion-skeleton-text></h3>
+                  <p style="font-size: 10px;color: #B0B3B5;">MAC Address:<ion-skeleton-text style="width: 10px;" animated></ion-skeleton-text></p>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col size="2.5" align-self-center style="padding: 0;">
+              <ion-button style="pointer-events: none;" fill="clear"><img width="24px" height="24px" src="../../assets/icon/info-circle-solid.svg" alt=""></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+</ng-template>

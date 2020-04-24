@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, PopoverController, AlertController } from '@ionic/angular';
-import { PopoverDatum } from 'src/app/shared/popoverData';
+import { Popover, CommonValues } from 'src/app/shared/popoverData';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
+import { NotificationDatum } from 'src/app/shared/viewerDataFormatter';
 
 @Component({
   selector: 'app-popover',
@@ -12,7 +13,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PopoverPage implements OnInit {
 
-  popoverData: PopoverDatum;
+  popoverType: string;
 
   constructor(
     private navParams: NavParams,
@@ -21,12 +22,11 @@ export class PopoverPage implements OnInit {
     private popoverController: PopoverController,
     private alertController: AlertController
   ) {
-    this.popoverData = new PopoverDatum(this.navParams.data.id, this.navParams.data.popoverType);
+    this.popoverType = this.navParams.data.popoverType;
   }
 
   ngOnInit() {
-    if (this.popoverData.popoverType === 'menu') {
-      // this.isMenu = true;
+    if (this.popoverType === 'menu') {
       document.getElementById('popover').innerHTML = `
       <ion-item button id="profile">
         <img src="../../../../../assets/icon/person-24px.svg" alt="" style="margin-right: 8px;">Profile
@@ -50,7 +50,7 @@ export class PopoverPage implements OnInit {
     const msgID = document.getElementsByClassName('alert-message')[0].id;
     document.getElementById(headerID).style.textAlign = 'center';
     document.getElementById(headerID).innerHTML = `
-    <img src="../../../assets/icon/fire-free.png" alt="logo" width="50px" height="50px">
+    <img src="../../../assets/icon/main-icon.png" alt="logo" width="50px" height="50px">
     <p style="font-family: 'Courier New', Courier, monospace;margin-top: -5px;"><strong><em>Fire-Free</em></strong></p>
     <p style="font-size: 12px;font-family: 'Courier New', Courier, monospace;margin-top: -20px;">v1.9.7a Beta</p>
     <hr style="border-top: 1px solid #B0B3B5;">`;
@@ -71,7 +71,7 @@ export class PopoverPage implements OnInit {
   }
 
   private setListeners() {
-    if (this.popoverData.popoverType === 'menu') {
+    if (this.popoverType === 'menu') {
       document.getElementById('profile').addEventListener('click', (e: Event) => {
         this.popoverController.dismiss();
         this.router.navigate(['/menus/profile']);
