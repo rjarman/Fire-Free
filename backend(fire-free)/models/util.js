@@ -1,4 +1,4 @@
-const encryption_decryption = require('../miscellaneous/encryption');
+const encryption_decryption = require('../miscellaneous/crypto');
 
 module.exports = {
     Signup: function signup (data) {

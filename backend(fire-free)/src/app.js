@@ -21,10 +21,9 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-const localStorage = require('../models/localStorage');
-const dataStructures = require('../models/dataStructures');
+const dataStructures = require('../models/util');
 const databaseFunction = require('../models/db');
-const encryption_decryption = require('../miscellaneous/encryption');
+const encryption_decryption = require('../miscellaneous/crypto');
 const mongodbClient = mongodb.MongoClient;
 const DATABASE_URL = process.env.DATABASE_URL_ONLINE;
 
