@@ -19,8 +19,6 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "formidable": "^1.2.2",
-    "mongodb": "^3.5.3",
-    "node-localstorage": "^2.1.5",
-    "socket.io": "^2.3.0"
+    "mongodb": "^3.5.3"
   }
 }
