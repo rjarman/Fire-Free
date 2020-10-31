@@ -46,7 +46,7 @@ app.use(
   })
 );
 
-const publicDir = require('path').join(__dirname, '../public/');
+const publicDir = require('path').join(__dirname, '../../public/');
 app.use(express.static(publicDir));
 
 /***
