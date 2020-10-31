@@ -7,7 +7,7 @@ module.exports = {
         this.contactNumber = data.contactNumber;
         this.designation = data.designation;
         this.gender = data.gender;
-        this.password = JSON.stringify(require('../miscellaneous/crypto').encryption(data.password));
+        this.password = JSON.stringify(require('./crypto').encryption(data.password));
     },
     Login: function login(data) {
         this.email = data.email;

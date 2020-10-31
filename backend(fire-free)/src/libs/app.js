@@ -17,9 +17,9 @@ const bodyParser = require('body-parser');
 const formidable = require('formidable');
 const fileSystem = require('fs');
 const app = express();
-const util = require('../models/util');
-const databaseFunction = require('../models/db');
-const crypto = require('../miscellaneous/crypto');
+const util = require('./util');
+const databaseFunction = require('./db');
+const crypto = require('./crypto');
 const mongodbClient = require('mongodb').MongoClient;
 const DATABASE_URL = process.env.DATABASE_URL_ONLINE;
 

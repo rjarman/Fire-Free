@@ -2,11 +2,11 @@
   "name": "homie.fire_free.api",
   "version": "1.0.0",
   "description": "This API is for fire-free and homie to upload all the data to the remote server for further usage.",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "start:server": "nodemon server.js"
+    "start": "node src/server.js",
+    "start:server": "nodemon src/server.js"
   },
   "author": "Rafsun Jany Arman",
   "license": "ISC",
