@@ -1,15 +1,24 @@
 {
-  "name": "homie.fire_free.api",
+  "name": "fire-free",
   "version": "1.0.0",
-  "description": "This API is for fire-free and homie to upload all the data to the remote server for further usage.",
+  "description": "This is a mobile application for helping the **firefighters** to rescue the victims on time. It has two parts: hardware and software. The hardware part will be sold by the firefighters to the users and registered the mac address along with user details through this application. So whenever there are gas leakage or set fire in any houses then instantly the notification will come to all the firefighters whoever has this application and then they can take necessary actions, if the incident has been solved by the fire service then they can set the incident as solved. Its notification has the coordinate of the registered user's house which was instantly sent by the hardware part. The hardware part has the capability to send coordinates and the **MQ-2** sensor data to the central fire service database. Even it can play alarm locally in the house.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rjarman/Fire-Free.git"
+  },
+  "keywords": [],
+  "author": "Rafsun Jany Arman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rjarman/Fire-Free/issues"
+  },
+  "homepage": "https://github.com/rjarman/Fire-Free#readme",
   "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server.js",
-    "start:server": "nodemon src/server.js"
+    "server": "node src/server.js",
+    "dev:server": "nodemon src/server.js"
   },
-  "author": "Rafsun Jany Arman",
-  "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.2"
   },
