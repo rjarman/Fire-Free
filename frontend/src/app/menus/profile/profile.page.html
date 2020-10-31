@@ -38,8 +38,8 @@
         id="avatarUserDesignation"
         *ngIf="isDesignationSet else noDesignationSet1"
       >
-        {{adminData.designation}} of {{adminData.branch}}, Bangladesh Fire
-        Service & Civil Defence
+        {{adminData.designation}} of Fire Service & Civil Defence,
+        {{adminData.branch}}, Bangladesh
       </p>
       <ng-template #noDesignationSet1>
         <p id="avatarUserDesignation">
@@ -51,8 +51,8 @@
   <ion-card id="userCard">
     <ion-card-header> {{adminData.username}} </ion-card-header>
     <ion-card-subtitle id="des" *ngIf="isDesignationSet else noDesignationSet2">
-      {{adminData.designation}} of {{adminData.branch}}, Bangladesh Fire Service
-      & Civil Defence
+      {{adminData.designation}} of Fire Service & Civil Defence,
+      {{adminData.branch}}, Bangladesh
     </ion-card-subtitle>
     <ng-template #noDesignationSet2>
       <ion-card-subtitle id="des">
