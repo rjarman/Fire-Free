@@ -8,7 +8,7 @@ let key = 'f8674ff5ab6d971df2abc627b90e60628be929ec'
 key = crypto.createHash(hashAlgorithm).update(String(key)).digest(hashEncodingBase).substr(0, 32);
 
 const encryption_decryption = {
-    encrytion: (data) => {
+    encryption: (data) => {
         data = Buffer.from(data);
         const initializationVector = crypto.randomBytes(16);
         const cipher = crypto.createCipheriv(cipherAlgorithm, key, initializationVector);
