@@ -7,15 +7,17 @@ import { CommonValues, Popover } from '../shared/popoverData';
   providedIn: 'root',
 })
 export class PopoverService {
-
-  constructor(private popoverController: PopoverController) { }
+  constructor(private popoverController: PopoverController) {}
 
   async showPopover(commonValues: Popover<CommonValues>, _data?: any) {
     const popover = await this.popoverController.create({
       component: PopoverPage,
       event: commonValues.popoverData.event,
       translucent: true,
-      componentProps: {popoverType: commonValues.popoverData.popoverType, data: _data}
+      componentProps: {
+        popoverType: commonValues.popoverData.popoverType,
+        data: _data,
+      },
     });
     return await popover.present();
   }

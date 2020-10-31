@@ -13,16 +13,16 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./edit.page.scss'],
 })
 export class EditPage implements OnInit, OnDestroy {
-
-  public isValidUserName: boolean;
-  public isNotValidUserName: boolean;
-  public isLoadingUserName: boolean;
-
-  public isValidContactNumber: boolean;
-  public isNotValidContactNumber: boolean;
-  public isLoadingContactNumber: boolean;
-
   private profilePhoto;
+
+  isValidUserName: boolean;
+  isNotValidUserName: boolean;
+  isLoadingUserName: boolean;
+
+  isValidContactNumber: boolean;
+  isNotValidContactNumber: boolean;
+  isLoadingContactNumber: boolean;
+
   defaultImagePath: string;
   isDefault: boolean;
 
@@ -30,15 +30,33 @@ export class EditPage implements OnInit, OnDestroy {
   adminEmail: string;
 
   addImageForm = this.formBuilder.group({
-    image: ['', [Validators.required, Validators.pattern(RegularExpressionList.regExp.image)]]
+    image: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(RegularExpressionList.regExp.image),
+      ],
+    ],
   });
 
   adminForm = this.formBuilder.group({
-    userName: ['', [Validators.required, Validators.pattern(RegularExpressionList.regExp.userName)]],
+    userName: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(RegularExpressionList.regExp.userName),
+      ],
+    ],
     gender: ['', [Validators.required]],
-    contactNumber: ['', [Validators.required, Validators.pattern(RegularExpressionList.regExp.contactNumber)]],
+    contactNumber: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(RegularExpressionList.regExp.contactNumber),
+      ],
+    ],
     designation: ['', [Validators.required]],
-    branch: ['', [Validators.required]]
+    branch: ['', [Validators.required]],
   });
 
   constructor(
@@ -51,19 +69,21 @@ export class EditPage implements OnInit, OnDestroy {
     this.defaultImagePath = environment.custom.PATH.ADMIN_PATH;
     this.isDefault = false;
     this.formService.resetAllValidators();
-   }
+  }
 
   ngOnDestroy(): void {
     this.formService.resetAllValidators();
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
+    this.activatedRoute.params.subscribe((params) => {
       const parsedAdminData = JSON.parse(params.adminData);
       if (Object.keys(parsedAdminData).length > 0) {
         this.adminForm.get('userName').setValue(parsedAdminData.username);
         this.adminForm.get('gender').setValue(parsedAdminData.gender);
-        this.adminForm.get('contactNumber').setValue(parsedAdminData.contactNumber);
+        this.adminForm
+          .get('contactNumber')
+          .setValue(parsedAdminData.contactNumber);
         this.adminForm.get('branch').setValue(parsedAdminData.branch);
         this.adminForm.get('designation').setValue(parsedAdminData.designation);
       }
@@ -83,19 +103,23 @@ export class EditPage implements OnInit, OnDestroy {
   }
 
   discardImage() {
-    document.getElementById('profileEdit').setAttribute('src', '../../../assets/icon/profile-2.png');
+    document
+      .getElementById('profileEdit')
+      .setAttribute('src', '../../../assets/icon/profile-2.png');
     this.profilePhoto = 'default';
   }
 
   updateAdmin() {
     this.formService.userEmail = this.adminEmail;
-    this.formService.formHandler(new FormDataFormatter(this.adminForm, this.profilePhoto, 'admin', true));
+    this.formService.formHandler(
+      new FormDataFormatter(this.adminForm, this.profilePhoto, 'admin', true)
+    );
   }
 
   setImages(event: any) {
     const preview = document.getElementById('profileEdit');
     const file = event.target.files[0];
-    const reader  = new FileReader();
+    const reader = new FileReader();
 
     reader.onloadend = () => {
       preview.setAttribute('src', reader.result.toString());
@@ -113,31 +137,56 @@ export class EditPage implements OnInit, OnDestroy {
   async showToast() {
     const toast = await this.toastConroller.create({
       message: 'Image format is INVALID!',
-      duration: 1500
+      duration: 1500,
     });
     toast.present();
   }
 
-  public focused(valueType: string, value: string) {
+  focused(valueType: string, value: string) {
     this.formService.focused(valueType, value);
 
-    this.isValidUserName = this.formService.getAllVariables('admin').isValidUserName;
-    this.isNotValidUserName = this.formService.getAllVariables('admin').isNotValidUserName;
-    this.isLoadingUserName = this.formService.getAllVariables('admin').isLoadingUserName;
+    this.isValidUserName = this.formService.getAllVariables(
+      'admin'
+    ).isValidUserName;
+    this.isNotValidUserName = this.formService.getAllVariables(
+      'admin'
+    ).isNotValidUserName;
+    this.isLoadingUserName = this.formService.getAllVariables(
+      'admin'
+    ).isLoadingUserName;
 
-    this.isValidContactNumber = this.formService.getAllVariables('admin').isValidContactNumber;
-    this.isNotValidContactNumber = this.formService.getAllVariables('admin').isNotValidContactNumber;
-    this.isLoadingContactNumber = this.formService.getAllVariables('admin').isLoadingContactNumber;
+    this.isValidContactNumber = this.formService.getAllVariables(
+      'admin'
+    ).isValidContactNumber;
+    this.isNotValidContactNumber = this.formService.getAllVariables(
+      'admin'
+    ).isNotValidContactNumber;
+    this.isLoadingContactNumber = this.formService.getAllVariables(
+      'admin'
+    ).isLoadingContactNumber;
   }
-  public notFocused(valueType: string, value: string) {
+  
+  notFocused(valueType: string, value: string) {
     this.formService.notFocused(valueType, value);
 
-    this.isValidUserName = this.formService.getAllVariables('admin').isValidUserName;
-    this.isNotValidUserName = this.formService.getAllVariables('admin').isNotValidUserName;
-    this.isLoadingUserName = this.formService.getAllVariables('admin').isLoadingUserName;
+    this.isValidUserName = this.formService.getAllVariables(
+      'admin'
+    ).isValidUserName;
+    this.isNotValidUserName = this.formService.getAllVariables(
+      'admin'
+    ).isNotValidUserName;
+    this.isLoadingUserName = this.formService.getAllVariables(
+      'admin'
+    ).isLoadingUserName;
 
-    this.isValidContactNumber = this.formService.getAllVariables('admin').isValidContactNumber;
-    this.isNotValidContactNumber = this.formService.getAllVariables('admin').isNotValidContactNumber;
-    this.isLoadingContactNumber = this.formService.getAllVariables('admin').isLoadingContactNumber;
+    this.isValidContactNumber = this.formService.getAllVariables(
+      'admin'
+    ).isValidContactNumber;
+    this.isNotValidContactNumber = this.formService.getAllVariables(
+      'admin'
+    ).isNotValidContactNumber;
+    this.isLoadingContactNumber = this.formService.getAllVariables(
+      'admin'
+    ).isLoadingContactNumber;
   }
 }

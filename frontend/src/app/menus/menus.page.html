@@ -1,26 +1,56 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Fire Free</ion-title>
-    <ion-button class="img-button-red" (click)="showPopover($event)" fill="clear" slot="end">
-      <img width="24px" height="24px" src="../../assets/icon/more_vert-black-48dp.svg" alt="">
+    <ion-button
+      class="img-button-red"
+      (click)="showPopover($event)"
+      fill="clear"
+      slot="end"
+    >
+      <img
+        width="24px"
+        height="24px"
+        src="../../assets/icon/more_vert-black-48dp.svg"
+        alt=""
+      />
     </ion-button>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div style="position: relative;top: 50%;transform: translate(-50%, -50%);margin-left: 50%;">
-    <ion-badge color="danger" style="--border-radius: 100%;float: right;margin-right: -15px;margin-bottom: -7px;" *ngIf="isNotification">{{notificationNumber}}</ion-badge>
-    <ion-card routerLink="notification" style="width: 100%;z-index: -1;">
-      <img src="../../assets/icon/notification.png"/>
+  <div
+    style="
+      position: relative;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      margin-left: 50%;
+    "
+  >
+    <ion-badge
+      color="danger"
+      style="
+        --border-radius: 100%;
+        float: right;
+        margin-right: -15px;
+        margin-bottom: -7px;
+      "
+      *ngIf="isNotification"
+      >{{notificationNumber}}</ion-badge
+    >
+    <ion-card routerLink="notification" style="width: 100%; z-index: -1">
+      <img src="../../assets/icon/notification.png" />
       <ion-card-header>
-        <ion-card-title style="text-align: center;">Affected List</ion-card-title>
+        <ion-card-title style="text-align: center"
+          >Affected List</ion-card-title
+        >
       </ion-card-header>
     </ion-card>
-    <ion-card routerLink="registration" style="width: 100%;">
-      <img src="../../assets/icon/new_registration.png"/>
+    <ion-card routerLink="registration" style="width: 100%">
+      <img src="../../assets/icon/new_registration.png" />
       <ion-card-header>
-        <ion-card-title style="text-align: center;">New Registration</ion-card-title>
+        <ion-card-title style="text-align: center"
+          >New Registration</ion-card-title
+        >
       </ion-card-header>
     </ion-card>
   </div>
 </ion-content>
-  

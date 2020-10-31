@@ -3,29 +3,37 @@
     <ion-back-button defaultHref="/"></ion-back-button>
   </ion-buttons>
 </ion-toolbar>
-
 <ion-content>
   <form [formGroup]="registrationForm" (ngSubmit)="checkRegistration()">
-
-    <ion-card style="background-color: #ffffff;">
-      <img src="../../../assets/icon/new_registration_cover.png"/>
-
-      <ion-card-header>
-        Cunsumer Details
-      </ion-card-header>
+    <ion-card style="background-color: #ffffff">
+      <img src="../../../assets/icon/new_registration_cover.png" />
+      <ion-card-header> Consumer Details </ion-card-header>
       <ion-card-content>
         <ion-item>
           <ion-label position="floating">Consumer Name</ion-label>
           <ion-row>
             <ion-col size="11">
-              <ion-input #consumerName (ionInput)="focused('consumerName', consumerName.value)" (ionBlur)="notFocused('consumerName', consumerName.value)" type="text" formControlName="consumerName" required></ion-input>
+              <ion-input
+                #consumerName
+                (ionInput)="focused('consumerName', consumerName.value)"
+                (ionBlur)="notFocused('consumerName', consumerName.value)"
+                type="text"
+                formControlName="consumerName"
+                required
+              ></ion-input>
             </ion-col>
             <ion-col size="1" class="align-self-end">
-              <div *ngIf="isLoadingConsumerName" style="margin-left: 26px;">
+              <div *ngIf="isLoadingConsumerName" style="margin-left: 26px">
                 <ion-spinner color="primary" name="crescent"></ion-spinner>
               </div>
-              <img *ngIf="isValidConsumerName" src="../../assets/icon/check-green-24dp.svg">
-              <img *ngIf="isNotValidConsumerName" src="../../assets/icon/close-red-24dp.svg">
+              <img
+                *ngIf="isValidConsumerName"
+                src="../../assets/icon/check-green-24dp.svg"
+              />
+              <img
+                *ngIf="isNotValidConsumerName"
+                src="../../assets/icon/close-red-24dp.svg"
+              />
             </ion-col>
           </ion-row>
         </ion-item>
@@ -33,14 +41,27 @@
           <ion-label position="floating">Email Address</ion-label>
           <ion-row>
             <ion-col size="11">
-              <ion-input #email (ionInput)="focused('email', email.value)" (ionBlur)="notFocused('email', email.value)" type="email" formControlName="email" required></ion-input>
+              <ion-input
+                #email
+                (ionInput)="focused('email', email.value)"
+                (ionBlur)="notFocused('email', email.value)"
+                type="email"
+                formControlName="email"
+                required
+              ></ion-input>
             </ion-col>
             <ion-col size="1" class="align-self-end">
-              <div *ngIf="isLoadingEmail" style="margin-left: 26px;">
+              <div *ngIf="isLoadingEmail" style="margin-left: 26px">
                 <ion-spinner color="primary" name="crescent"></ion-spinner>
               </div>
-              <img *ngIf="isValidEmail" src="../../assets/icon/check-green-24dp.svg">
-              <img *ngIf="isNotValidEmail" src="../../assets/icon/close-red-24dp.svg">
+              <img
+                *ngIf="isValidEmail"
+                src="../../assets/icon/check-green-24dp.svg"
+              />
+              <img
+                *ngIf="isNotValidEmail"
+                src="../../assets/icon/close-red-24dp.svg"
+              />
             </ion-col>
           </ion-row>
         </ion-item>
@@ -48,48 +69,79 @@
           <ion-label position="floating">Contact Number</ion-label>
           <ion-row>
             <ion-col size="11">
-              <ion-input #contactNumber (ionInput)="focused('contactNumber', contactNumber.value)" (ionBlur)="notFocused('contactNumber', contactNumber.value)" type="tel" formControlName="contactNumber" required></ion-input>
+              <ion-input
+                #contactNumber
+                (ionInput)="focused('contactNumber', contactNumber.value)"
+                (ionBlur)="notFocused('contactNumber', contactNumber.value)"
+                type="tel"
+                formControlName="contactNumber"
+                required
+              ></ion-input>
             </ion-col>
             <ion-col size="1" class="align-self-end">
-              <div *ngIf="isLoadingContactNumber" style="margin-left: 26px;">
+              <div *ngIf="isLoadingContactNumber" style="margin-left: 26px">
                 <ion-spinner color="primary" name="crescent"></ion-spinner>
               </div>
-              <img *ngIf="isValidContactNumber" src="../../assets/icon/check-green-24dp.svg">
-              <img *ngIf="isNotValidContactNumber" src="../../assets/icon/close-red-24dp.svg">
+              <img
+                *ngIf="isValidContactNumber"
+                src="../../assets/icon/check-green-24dp.svg"
+              />
+              <img
+                *ngIf="isNotValidContactNumber"
+                src="../../assets/icon/close-red-24dp.svg"
+              />
             </ion-col>
           </ion-row>
         </ion-item>
       </ion-card-content>
-
-      <ion-card-header>
-        Device Details
-      </ion-card-header>
+      <ion-card-header> Device Details </ion-card-header>
       <ion-card-content>
         <ion-item>
           <ion-label position="floating">MAC Address</ion-label>
           <ion-row>
             <ion-col size="11">
-              <ion-input #macAddress (ionInput)="focused('macAddress', macAddress.value)" (ionBlur)="notFocused('macAddress', macAddress.value)" type="text" formControlName="macAddress" required></ion-input>
+              <ion-input
+                #macAddress
+                (ionInput)="focused('macAddress', macAddress.value)"
+                (ionBlur)="notFocused('macAddress', macAddress.value)"
+                type="text"
+                formControlName="macAddress"
+                required
+              ></ion-input>
             </ion-col>
             <ion-col size="1" class="align-self-end">
-              <div *ngIf="isLoadingMACAddress" style="margin-left: 26px;">
+              <div *ngIf="isLoadingMACAddress" style="margin-left: 26px">
                 <ion-spinner color="primary" name="crescent"></ion-spinner>
               </div>
-              <img *ngIf="isValidMACAddress" src="../../assets/icon/check-green-24dp.svg">
-              <img *ngIf="isNotValidMACAddress" src="../../assets/icon/close-red-24dp.svg">
+              <img
+                *ngIf="isValidMACAddress"
+                src="../../assets/icon/check-green-24dp.svg"
+              />
+              <img
+                *ngIf="isNotValidMACAddress"
+                src="../../assets/icon/close-red-24dp.svg"
+              />
             </ion-col>
           </ion-row>
         </ion-item>
       </ion-card-content>
-
-      <ion-card-header>
-        Customer Photo
-      </ion-card-header>
+      <ion-card-header> Customer Photo </ion-card-header>
       <ion-card-content>
-          <ion-input formControlName="profile" (change)="setImage = $event" type="file" required></ion-input>
+        <ion-input
+          formControlName="profile"
+          (change)="setImage = $event"
+          type="file"
+          required
+        ></ion-input>
       </ion-card-content>
-
-      <ion-button expand="full" size="large" fill="solid" type="submit" [disabled]="!registrationForm.valid">Register</ion-button>
+      <ion-button
+        expand="full"
+        size="large"
+        fill="solid"
+        type="submit"
+        [disabled]="!registrationForm.valid"
+        >Register</ion-button
+      >
     </ion-card>
   </form>
 </ion-content>

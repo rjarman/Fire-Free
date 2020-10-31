@@ -12,29 +12,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./notification.page.scss'],
 })
 export class NotificationPage implements OnInit {
-
-  notificationData: NotificationDatum[];
-  isLoaded: boolean;
-
   private _isClicked = new Subject<number>();
   private clickCounter: any;
   private clickedCard: string;
-  consumerImagePath: string;
 
-  constructor(private alertController: AlertController, private databaseService: DatabaseService, private router: Router) {
+  consumerImagePath: string;
+  notificationData: NotificationDatum[];
+  isLoaded: boolean;
+  constructor(
+    private alertController: AlertController,
+    private databaseService: DatabaseService,
+    private router: Router
+  ) {
     this.isLoaded = false;
     this.consumerImagePath = environment.custom.PATH.CONSUMER_PATH;
     this.clickCounter = {};
     this.databaseService.fetchNotification();
 
-    this.isClicked.subscribe(clickedData => {
+    this.isClicked.subscribe((clickedData) => {
       if (clickedData[this.clickedCard] % 2 === 0) {
-        document.getElementById(this.clickedCard).style.animationName = 'warningBackward';
-        document.getElementById(this.clickedCard).style.animationDuration = '1s';
+        document.getElementById(this.clickedCard).style.animationName =
+          'warningBackward';
+        document.getElementById(this.clickedCard).style.animationDuration =
+          '1s';
         document.getElementById(this.clickedCard).style.width = '0px';
       } else {
-        document.getElementById(this.clickedCard).style.animationName = 'warningForward';
-        document.getElementById(this.clickedCard).style.animationDuration = '.5s';
+        document.getElementById(this.clickedCard).style.animationName =
+          'warningForward';
+        document.getElementById(this.clickedCard).style.animationDuration =
+          '.5s';
         document.getElementById(this.clickedCard).style.width = '80px';
       }
     });
@@ -42,7 +48,7 @@ export class NotificationPage implements OnInit {
 
   ngOnInit() {
     document.getElementById('notificationHeader').style.display = 'none';
-    this.databaseService.notificationData.subscribe(notificationData => {
+    this.databaseService.notificationData.subscribe((notificationData) => {
       this.notificationData = notificationData.viewerData;
       if (this.notificationData.length > 0) {
         document.getElementById('notificationHeader').style.display = '';
@@ -72,7 +78,7 @@ export class NotificationPage implements OnInit {
     } else {
       Object.defineProperty(this.clickCounter, macAddress, {
         value: 1,
-        writable: true
+        writable: true,
       });
     }
     this._isClicked.next(this.clickCounter);
@@ -90,33 +96,47 @@ export class NotificationPage implements OnInit {
   }
 
   async showAbout(notificationDatum) {
-    if (this.clickCounter[notificationDatum.consumerData.macAddress] && this.clickCounter[notificationDatum.consumerData.macAddress] % 2 !== 0) {
-      this.clickCounter[notificationDatum.consumerData.macAddress] = this.clickCounter[notificationDatum.consumerData.macAddress] + 1;
+    if (
+      this.clickCounter[notificationDatum.consumerData.macAddress] &&
+      this.clickCounter[notificationDatum.consumerData.macAddress] % 2 !== 0
+    ) {
+      this.clickCounter[notificationDatum.consumerData.macAddress] =
+        this.clickCounter[notificationDatum.consumerData.macAddress] + 1;
       this.clickedCard = notificationDatum.consumerData.macAddress;
       this._isClicked.next(this.clickCounter);
     }
     const about = await this.alertController.create({
-      header: 'Fire-Free'
+      header: 'Fire-Free',
     });
-    const headerID = document.getElementsByClassName('alert-head')[0].getElementsByTagName('h2')[0].id;
+    const headerID = document
+      .getElementsByClassName('alert-head')[0]
+      .getElementsByTagName('h2')[0].id;
     document.getElementById(headerID).style.textAlign = 'center';
-    document.getElementsByClassName('alert-wrapper')[0]['style'].backgroundColor = '#D7DEDC';
+    document.getElementsByClassName('alert-wrapper')[0][
+      'style'
+    ].backgroundColor = '#D7DEDC';
     document.getElementById(headerID).innerHTML = `
     <ion-grid>
       <ion-row>
         <ion-col size="12">
           <ion-avatar style="position: absolute;left: 50%;right: 50%;transform: translate(-50%, -50%);margin-top: 25px;">
-            <img src="${this.consumerImagePath + notificationDatum.consumerData.imagePath}" alt="logo" width="50px" height="50px">
+            <img src="${
+              this.consumerImagePath + notificationDatum.consumerData.imagePath
+            }" alt="logo" width="50px" height="50px">
           </ion-avatar>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" id="${notificationDatum.consumerData.macAddress}">
         <p style="font-family: 'Courier New', Courier, monospace;margin-top: 60px;">
-          <strong><em>${notificationDatum.consumerData.consumerName}</em></strong>
+          <strong><em>${
+            notificationDatum.consumerData.consumerName
+          }</em></strong>
         </p>
         <p style="font-size: 12px;font-family: 'Courier New', Courier, monospace;margin-top: -20px;">
-          <a href="mailto:${notificationDatum.consumerData.email}" style="color: #94BF69">${notificationDatum.consumerData.email}</a>
+          <a href="mailto:${
+            notificationDatum.consumerData.email
+          }" style="color: #94BF69">${notificationDatum.consumerData.email}</a>
         </p>
         </ion-col>
       </ion-row>
@@ -135,19 +155,27 @@ export class NotificationPage implements OnInit {
     </ion-grid>
     <hr style="border-top: 1px solid #B0B3B5;">
     <div style="text-align: center;margin-bottom: -35px;">
-        <p style="font-size: 12px; color: #B0B3B5;">MAC Address: ${notificationDatum.consumerData.macAddress}</p>
+        <p style="font-size: 12px; color: #B0B3B5;">MAC Address: ${
+          notificationDatum.consumerData.macAddress
+        }</p>
     </div>`;
     if (notificationDatum.solvedBy) {
-      document.getElementById(notificationDatum.consumerData.macAddress).innerHTML += `
+      document.getElementById(
+        notificationDatum.consumerData.macAddress
+      ).innerHTML += `
       <p style="font-size: 12px;font-family: 'Courier New', Courier, monospace;margin-top: -5px;">
         Solved By:<br><a href="mailto:${notificationDatum.solvedBy}" style="color: #94BF69">${notificationDatum.solvedBy}</a>
       </p>`;
     }
-    document.getElementById(notificationDatum.consumerData.macAddress + 1).addEventListener('click', (e: Event) => {
-      this.alertController.dismiss();
-      this.router.navigate(['/menus/notification/map', JSON.stringify(notificationDatum)]);
-    });
+    document
+      .getElementById(notificationDatum.consumerData.macAddress + 1)
+      .addEventListener('click', (e: Event) => {
+        this.alertController.dismiss();
+        this.router.navigate([
+          '/menus/notification/map',
+          JSON.stringify(notificationDatum),
+        ]);
+      });
     await about.present();
   }
-
 }

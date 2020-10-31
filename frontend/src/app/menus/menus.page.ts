@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PopoverService } from '../services/popover.service';
 import { Popover, CommonValues } from '../shared/popoverData';
 import { DatabaseService } from '../services/database.service';
@@ -8,14 +8,16 @@ import { DatabaseService } from '../services/database.service';
   templateUrl: './menus.page.html',
   styleUrls: ['./menus.page.scss'],
 })
-export class MenusPage implements OnInit {
-
+export class MenusPage {
   notificationNumber: number;
   isNotification: boolean;
 
-  constructor(private popoverService: PopoverService, private databaseService: DatabaseService) {
+  constructor(
+    private popoverService: PopoverService,
+    private databaseService: DatabaseService
+  ) {
     this.databaseService.fetchNotification(true);
-    this.databaseService.notificationNumber.subscribe(notificationNumber => {
+    this.databaseService.notificationNumber.subscribe((notificationNumber) => {
       if (notificationNumber > 0) {
         this.notificationNumber = notificationNumber;
         this.isNotification = true;
@@ -25,10 +27,9 @@ export class MenusPage implements OnInit {
     });
   }
 
-  ngOnInit() { }
-
-  public showPopover(evnt: any) {
-    this.popoverService.showPopover(new Popover<CommonValues>({event: evnt, popoverType: 'menu'}));
+  showPopover(evnt: any) {
+    this.popoverService.showPopover(
+      new Popover<CommonValues>({ event: evnt, popoverType: 'menu' })
+    );
   }
-
 }

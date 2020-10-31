@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, PopoverController, AlertController } from '@ionic/angular';
-import { Popover, CommonValues } from 'src/app/shared/popoverData';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
-import { NotificationDatum } from 'src/app/shared/viewerDataFormatter';
 
 @Component({
   selector: 'app-popover',
@@ -12,7 +10,6 @@ import { NotificationDatum } from 'src/app/shared/viewerDataFormatter';
   styleUrls: ['./popover.page.scss'],
 })
 export class PopoverPage implements OnInit {
-
   popoverType: string;
 
   constructor(
@@ -44,9 +41,11 @@ export class PopoverPage implements OnInit {
   async showAbout() {
     const about = await this.alertController.create({
       header: 'Fire-Free',
-      message: 'Fire-Free'
+      message: 'Fire-Free',
     });
-    const headerID = document.getElementsByClassName('alert-head')[0].getElementsByTagName('h2')[0].id;
+    const headerID = document
+      .getElementsByClassName('alert-head')[0]
+      .getElementsByTagName('h2')[0].id;
     const msgID = document.getElementsByClassName('alert-message')[0].id;
     document.getElementById(headerID).style.textAlign = 'center';
     document.getElementById(headerID).innerHTML = `
@@ -73,39 +72,48 @@ export class PopoverPage implements OnInit {
 
   private setListeners() {
     if (this.popoverType === 'menu') {
-      document.getElementById('profile').addEventListener('click', (e: Event) => {
-        this.popoverController.dismiss();
-        this.router.navigate(['/menus/profile']);
-      });
+      document
+        .getElementById('profile')
+        .addEventListener('click', (e: Event) => {
+          this.popoverController.dismiss();
+          this.router.navigate(['/menus/profile']);
+        });
       document.getElementById('about').addEventListener('click', (e: Event) => {
         this.popoverController.dismiss();
         this.showAbout();
       });
-      document.getElementById('logout').addEventListener('click', (e: Event) => {
-        this.popoverController.dismiss();
-        this.cookieService.delete('isLoggedIn');
-        this.cookieService.set('isLoggedIn', 'false');
-        this.router.navigate(['/auth']);
-      });
+      document
+        .getElementById('logout')
+        .addEventListener('click', (e: Event) => {
+          this.popoverController.dismiss();
+          this.cookieService.delete('isLoggedIn');
+          this.cookieService.set('isLoggedIn', 'false');
+          this.router.navigate(['/auth']);
+        });
     }
   }
 
   private setSocialListeners() {
-    document.getElementById('facebook').addEventListener('click', (e: Event) => {
-      window.open(environment.custom.SOCIAL.FACEBOOK);
-    });
+    document
+      .getElementById('facebook')
+      .addEventListener('click', (e: Event) => {
+        window.open(environment.custom.SOCIAL.FACEBOOK);
+      });
     document.getElementById('blog').addEventListener('click', (e: Event) => {
       window.open(environment.custom.SOCIAL.BLOG);
     });
-    document.getElementById('gitkraken').addEventListener('click', (e: Event) => {
-      window.open(environment.custom.SOCIAL.GITKRAKEN);
-    });
+    document
+      .getElementById('gitkraken')
+      .addEventListener('click', (e: Event) => {
+        window.open(environment.custom.SOCIAL.GITKRAKEN);
+      });
     document.getElementById('github').addEventListener('click', (e: Event) => {
       window.open(environment.custom.SOCIAL.GIT);
     });
-    document.getElementById('linkedin').addEventListener('click', (e: Event) => {
-      window.open(environment.custom.SOCIAL.LINKEDIN);
-    });
+    document
+      .getElementById('linkedin')
+      .addEventListener('click', (e: Event) => {
+        window.open(environment.custom.SOCIAL.LINKEDIN);
+      });
   }
-
 }

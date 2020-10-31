@@ -6,19 +6,21 @@ const routes: Routes = [
   { path: '', redirectTo: 'menus', pathMatch: 'full', canLoad: [AuthGuard] },
   {
     path: 'menus',
-    loadChildren: () => import('./menus/menus.module').then( m => m.MenusPageModule),
-    canLoad: [AuthGuard]
+    loadChildren: () =>
+      import('./menus/menus.module').then((m) => m.MenusPageModule),
+    canLoad: [AuthGuard],
   },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
+    loadChildren: () =>
+      import('./auth/auth.module').then((m) => m.AuthPageModule),
   },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

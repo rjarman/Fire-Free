@@ -1,12 +1,12 @@
 export interface CommonValues {
-    event: any;
-    popoverType: string;
+  event: any;
+  popoverType: string;
 }
 
 export class Popover<PopoverType> {
-    popoverData: PopoverType;
+  popoverData: PopoverType;
 
-    constructor(popoverData: PopoverType) {
-        this.popoverData = popoverData;
-    }
+  constructor(popoverData: PopoverType) {
+    this.popoverData = popoverData;
+  }
 }

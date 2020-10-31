@@ -10,97 +10,97 @@ import { Subject, Observable } from 'rxjs';
 import { DatabaseService } from './database.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FormService {
-  public get isValidEmail(): boolean {
+  get isValidEmail(): boolean {
     return this._isValidEmail;
   }
-  public set isValidEmail(value: boolean) {
+  set isValidEmail(value: boolean) {
     this._isValidEmail = value;
   }
-  public get isNotValidEmail(): boolean {
+  get isNotValidEmail(): boolean {
     return this._isNotValidEmail;
   }
-  public set isNotValidEmail(value: boolean) {
+  set isNotValidEmail(value: boolean) {
     this._isNotValidEmail = value;
   }
-  public get isLoadingEmail(): boolean {
+  get isLoadingEmail(): boolean {
     return this._isLoadingEmail;
   }
-  public set isLoadingEmail(value: boolean) {
+  set isLoadingEmail(value: boolean) {
     this._isLoadingEmail = value;
   }
-  public get isValidUserName(): boolean {
+  get isValidUserName(): boolean {
     return this._isValidUserName;
   }
-  public set isValidUserName(value: boolean) {
+  set isValidUserName(value: boolean) {
     this._isValidUserName = value;
   }
-  public get isNotValidUserName(): boolean {
+  get isNotValidUserName(): boolean {
     return this._isNotValidUserName;
   }
-  public set isNotValidUserName(value: boolean) {
+  set isNotValidUserName(value: boolean) {
     this._isNotValidUserName = value;
   }
-  public get isLoadingUserName(): boolean {
+  get isLoadingUserName(): boolean {
     return this._isLoadingUserName;
   }
-  public set isLoadingUserName(value: boolean) {
+  set isLoadingUserName(value: boolean) {
     this._isLoadingUserName = value;
   }
-  public get isValidConsumerName(): boolean {
+  get isValidConsumerName(): boolean {
     return this._isValidConsumerName;
   }
-  public set isValidConsumerName(value: boolean) {
+  set isValidConsumerName(value: boolean) {
     this._isValidConsumerName = value;
   }
-  public get isNotValidConsumerName(): boolean {
+  get isNotValidConsumerName(): boolean {
     return this._isNotValidConsumerName;
   }
-  public set isNotValidConsumerName(value: boolean) {
+  set isNotValidConsumerName(value: boolean) {
     this._isNotValidConsumerName = value;
   }
-  public get isLoadingConsumerName(): boolean {
+  get isLoadingConsumerName(): boolean {
     return this._isLoadingConsumerName;
   }
-  public set isLoadingConsumerName(value: boolean) {
+  set isLoadingConsumerName(value: boolean) {
     this._isLoadingConsumerName = value;
   }
-  public get isValidContactNumber() {
+  get isValidContactNumber() {
     return this._isValidContactNumber;
   }
-  public set isValidContactNumber(value) {
+  set isValidContactNumber(value) {
     this._isValidContactNumber = value;
   }
-  public get isNotValidContactNumber() {
+  get isNotValidContactNumber() {
     return this._isNotValidContactNumber;
   }
-  public set isNotValidContactNumber(value) {
+  set isNotValidContactNumber(value) {
     this._isNotValidContactNumber = value;
   }
-  public get isLoadingContactNumber() {
+  get isLoadingContactNumber() {
     return this._isLoadingContactNumber;
   }
-  public set isLoadingContactNumber(value) {
+  set isLoadingContactNumber(value) {
     this._isLoadingContactNumber = value;
   }
-  public get isValidMACAddress() {
+  get isValidMACAddress() {
     return this._isValidMACAddress;
   }
-  public set isValidMACAddress(value) {
+  set isValidMACAddress(value) {
     this._isValidMACAddress = value;
   }
-  public get isNotValidMACAddress() {
+  get isNotValidMACAddress() {
     return this._isNotValidMACAddress;
   }
-  public set isNotValidMACAddress(value) {
+  set isNotValidMACAddress(value) {
     this._isNotValidMACAddress = value;
   }
-  public get isLoadingMACAddress() {
+  get isLoadingMACAddress() {
     return this._isLoadingMACAddress;
   }
-  public set isLoadingMACAddress(value) {
+  set isLoadingMACAddress(value) {
     this._isLoadingMACAddress = value;
   }
 
@@ -110,7 +110,7 @@ export class FormService {
     private route: Router,
     private toastController: ToastController,
     private databaseService: DatabaseService
-  ) { }
+  ) {}
   set userEmail(email) {
     this._userEmail = email;
   }
@@ -151,18 +151,17 @@ export class FormService {
   private _userEmail;
   private _servedBy;
 
-/***
- *              _______  _       _________ ______   _______ __________________ _______  _
- *    |\     /|(  ___  )( \      \__   __/(  __  \ (  ___  )\__   __/\__   __/(  ___  )( (    /|
- *    | )   ( || (   ) || (         ) (   | (  \  )| (   ) |   ) (      ) (   | (   ) ||  \  ( |
- *    | |   | || (___) || |         | |   | |   ) || (___) |   | |      | |   | |   | ||   \ | |
- *    ( (   ) )|  ___  || |         | |   | |   | ||  ___  |   | |      | |   | |   | || (\ \) |
- *     \ \_/ / | (   ) || |         | |   | |   ) || (   ) |   | |      | |   | |   | || | \   |
- *      \   /  | )   ( || (____/\___) (___| (__/  )| )   ( |   | |   ___) (___| (___) || )  \  |
- *       \_/   |/     \|(_______/\_______/(______/ |/     \|   )_(   \_______/(_______)|/    )_)
- *
- */
-
+  /***
+   *              _______  _       _________ ______   _______ __________________ _______  _
+   *    |\     /|(  ___  )( \      \__   __/(  __  \ (  ___  )\__   __/\__   __/(  ___  )( (    /|
+   *    | )   ( || (   ) || (         ) (   | (  \  )| (   ) |   ) (      ) (   | (   ) ||  \  ( |
+   *    | |   | || (___) || |         | |   | |   ) || (___) |   | |      | |   | |   | ||   \ | |
+   *    ( (   ) )|  ___  || |         | |   | |   | ||  ___  |   | |      | |   | |   | || (\ \) |
+   *     \ \_/ / | (   ) || |         | |   | |   ) || (   ) |   | |      | |   | |   | || | \   |
+   *      \   /  | )   ( || (____/\___) (___| (__/  )| )   ( |   | |   ___) (___| (___) || )  \  |
+   *       \_/   |/     \|(_______/\_______/(______/ |/     \|   )_(   \_______/(_______)|/    )_)
+   *
+   */
 
   getAllVariables(formType) {
     switch (formType) {
@@ -174,7 +173,7 @@ export class FormService {
 
           isValidUserName: this.isValidUserName,
           isNotValidUserName: this.isNotValidUserName,
-          isLoadingUserName: this.isLoadingUserName
+          isLoadingUserName: this.isLoadingUserName,
         };
       }
       case 'consumerReg': {
@@ -193,7 +192,7 @@ export class FormService {
 
           isValidMACAddress: this.isValidMACAddress,
           isNotValidMACAddress: this.isNotValidMACAddress,
-          isLoadingMACAddress: this.isLoadingMACAddress
+          isLoadingMACAddress: this.isLoadingMACAddress,
         };
       }
       case 'admin': {
@@ -204,7 +203,7 @@ export class FormService {
 
           isValidContactNumber: this.isValidContactNumber,
           isNotValidContactNumber: this.isNotValidContactNumber,
-          isLoadingContactNumber: this.isLoadingContactNumber
+          isLoadingContactNumber: this.isLoadingContactNumber,
         };
       }
     }
@@ -217,7 +216,9 @@ export class FormService {
         this.isNotValidEmail = false;
         this.isLoadingEmail = true;
 
-        const regularExpressionList = new RegExp(RegularExpressionList.regExp.email);
+        const regularExpressionList = new RegExp(
+          RegularExpressionList.regExp.email
+        );
         if (regularExpressionList.test(value)) {
           this.isLoadingEmail = false;
           this.isValidEmail = true;
@@ -232,7 +233,9 @@ export class FormService {
         this.isNotValidUserName = false;
         this.isLoadingUserName = true;
 
-        const regularExpressionList = new RegExp(RegularExpressionList.regExp.userName);
+        const regularExpressionList = new RegExp(
+          RegularExpressionList.regExp.userName
+        );
         if (regularExpressionList.test(value)) {
           this.isLoadingUserName = false;
           this.isValidUserName = true;
@@ -247,7 +250,9 @@ export class FormService {
         this.isNotValidConsumerName = false;
         this.isLoadingConsumerName = true;
 
-        const regularExpressionList = new RegExp(RegularExpressionList.regExp.consumerName);
+        const regularExpressionList = new RegExp(
+          RegularExpressionList.regExp.consumerName
+        );
         if (regularExpressionList.test(value)) {
           this.isLoadingConsumerName = false;
           this.isValidConsumerName = true;
@@ -262,7 +267,9 @@ export class FormService {
         this.isNotValidContactNumber = false;
         this.isLoadingContactNumber = true;
 
-        const regularExpressionList = new RegExp(RegularExpressionList.regExp.contactNumber);
+        const regularExpressionList = new RegExp(
+          RegularExpressionList.regExp.contactNumber
+        );
         if (regularExpressionList.test(value)) {
           this.isLoadingContactNumber = false;
           this.isValidContactNumber = true;
@@ -277,7 +284,9 @@ export class FormService {
         this.isNotValidMACAddress = false;
         this.isLoadingMACAddress = true;
 
-        const regularExpressionList = new RegExp(RegularExpressionList.regExp.macAddress);
+        const regularExpressionList = new RegExp(
+          RegularExpressionList.regExp.macAddress
+        );
         if (regularExpressionList.test(value)) {
           this.isLoadingMACAddress = false;
           this.isValidMACAddress = true;
@@ -297,7 +306,9 @@ export class FormService {
         this.isNotValidEmail = false;
         this.isLoadingEmail = false;
 
-        const regularExpressionList = new RegExp(RegularExpressionList.regExp.email);
+        const regularExpressionList = new RegExp(
+          RegularExpressionList.regExp.email
+        );
         if (regularExpressionList.test(value)) {
           this.isValidEmail = true;
           this.isNotValidEmail = false;
@@ -312,7 +323,9 @@ export class FormService {
         this.isNotValidUserName = false;
         this.isLoadingUserName = false;
 
-        const regularExpressionList = new RegExp(RegularExpressionList.regExp.userName);
+        const regularExpressionList = new RegExp(
+          RegularExpressionList.regExp.userName
+        );
         if (regularExpressionList.test(value)) {
           this.isValidUserName = true;
           this.isNotValidUserName = false;
@@ -327,7 +340,9 @@ export class FormService {
         this.isNotValidConsumerName = false;
         this.isLoadingConsumerName = false;
 
-        const regularExpressionList = new RegExp(RegularExpressionList.regExp.consumerName);
+        const regularExpressionList = new RegExp(
+          RegularExpressionList.regExp.consumerName
+        );
         if (regularExpressionList.test(value)) {
           this.isValidConsumerName = true;
           this.isNotValidConsumerName = false;
@@ -342,7 +357,9 @@ export class FormService {
         this.isNotValidContactNumber = false;
         this.isLoadingContactNumber = false;
 
-        const regularExpressionList = new RegExp(RegularExpressionList.regExp.contactNumber);
+        const regularExpressionList = new RegExp(
+          RegularExpressionList.regExp.contactNumber
+        );
         if (regularExpressionList.test(value)) {
           this.isValidContactNumber = true;
           this.isNotValidContactNumber = false;
@@ -357,7 +374,9 @@ export class FormService {
         this.isNotValidMACAddress = false;
         this.isLoadingMACAddress = false;
 
-        const regularExpressionList = new RegExp(RegularExpressionList.regExp.macAddress);
+        const regularExpressionList = new RegExp(
+          RegularExpressionList.regExp.macAddress
+        );
         if (regularExpressionList.test(value)) {
           this.isValidMACAddress = true;
           this.isNotValidMACAddress = false;
@@ -370,157 +389,228 @@ export class FormService {
     }
   }
 
-/***
- *     _______  _______  _______  _______                  _______  _        ______   _       _________ _        _______
- *    (  ____ \(  ___  )(  ____ )(       )       |\     /|(  ___  )( (    /|(  __  \ ( \      \__   __/( (    /|(  ____ \
- *    | (    \/| (   ) || (    )|| () () |       | )   ( || (   ) ||  \  ( || (  \  )| (         ) (   |  \  ( || (    \/
- *    | (__    | |   | || (____)|| || || | _____ | (___) || (___) ||   \ | || |   ) || |         | |   |   \ | || |
- *    |  __)   | |   | ||     __)| |(_)| |(_____)|  ___  ||  ___  || (\ \) || |   | || |         | |   | (\ \) || | ____
- *    | (      | |   | || (\ (   | |   | |       | (   ) || (   ) || | \   || |   ) || |         | |   | | \   || | \_  )
- *    | )      | (___) || ) \ \__| )   ( |       | )   ( || )   ( || )  \  || (__/  )| (____/\___) (___| )  \  || (___) |
- *    |/       (_______)|/   \__/|/     \|       |/     \||/     \||/    )_)(______/ (_______/\_______/|/    )_)(_______)
- *
- */
+  /***
+   *     _______  _______  _______  _______                  _______  _        ______   _       _________ _        _______
+   *    (  ____ \(  ___  )(  ____ )(       )       |\     /|(  ___  )( (    /|(  __  \ ( \      \__   __/( (    /|(  ____ \
+   *    | (    \/| (   ) || (    )|| () () |       | )   ( || (   ) ||  \  ( || (  \  )| (         ) (   |  \  ( || (    \/
+   *    | (__    | |   | || (____)|| || || | _____ | (___) || (___) ||   \ | || |   ) || |         | |   |   \ | || |
+   *    |  __)   | |   | ||     __)| |(_)| |(_____)|  ___  ||  ___  || (\ \) || |   | || |         | |   | (\ \) || | ____
+   *    | (      | |   | || (\ (   | |   | |       | (   ) || (   ) || | \   || |   ) || |         | |   | | \   || | \_  )
+   *    | )      | (___) || ) \ \__| )   ( |       | )   ( || )   ( || )  \  || (__/  )| (____/\___) (___| )  \  || (___) |
+   *    |/       (_______)|/   \__/|/     \|       |/     \||/     \||/    )_)(______/ (_______/\_______/|/    )_)(_______)
+   *
+   */
 
- public formHandler(formData: FormDataFormatter) {
-  const tempFormData = new FormData();
-  const img = [];
-  let tempImage: any;
+  formHandler(formData: FormDataFormatter) {
+    const tempFormData = new FormData();
+    const img = [];
+    let tempImage: any;
 
-  if (formData.hasImage && formData.formType !== 'admin') {
-    tempImage = formData.imageData;
-    tempImage = new File(
-      tempImage,
-      formData.textData.get('email').value.split('@')[0] + tempImage[0].name,
-      {type: tempImage[0].type}
-    );
-    img.push(tempImage.name);
-    tempFormData.append('images', tempImage);
-    tempFormData.append('imagePath', JSON.stringify(img));
-  } else if (formData.formType === 'admin') {
-    if (formData.imageData === 'default' || typeof formData.imageData === 'string') {
-      if (formData.imageData === 'default') {
-        tempImage = 'default';
-      } else {
-        tempImage = formData.imageData;
-      }
-      // tempImage = 'default';
-      tempFormData.append('imagePath', JSON.stringify(tempImage));
-    } else {
-      console.log(formData.imageData);
+    if (formData.hasImage && formData.formType !== 'admin') {
       tempImage = formData.imageData;
       tempImage = new File(
         tempImage,
-        this._userEmail.split('@')[0] + tempImage[0].name,
-        {type: tempImage[0].type}
+        formData.textData.get('email').value.split('@')[0] + tempImage[0].name,
+        { type: tempImage[0].type }
       );
+      img.push(tempImage.name);
       tempFormData.append('images', tempImage);
-      tempFormData.append('imagePath', JSON.stringify(tempImage.name));
+      tempFormData.append('imagePath', JSON.stringify(img));
+    } else if (formData.formType === 'admin') {
+      if (
+        formData.imageData === 'default' ||
+        typeof formData.imageData === 'string'
+      ) {
+        if (formData.imageData === 'default') {
+          tempImage = 'default';
+        } else {
+          tempImage = formData.imageData;
+        }
+        tempFormData.append('imagePath', JSON.stringify(tempImage));
+      } else {
+        console.log(formData.imageData);
+        tempImage = formData.imageData;
+        tempImage = new File(
+          tempImage,
+          this._userEmail.split('@')[0] + tempImage[0].name,
+          { type: tempImage[0].type }
+        );
+        tempFormData.append('images', tempImage);
+        tempFormData.append('imagePath', JSON.stringify(tempImage.name));
+      }
+    }
+
+    switch (formData.formType) {
+      case 'signup': {
+        tempFormData.append(
+          'userName',
+          JSON.stringify(formData.textData.get('userName').value)
+        );
+        tempFormData.append(
+          'email',
+          JSON.stringify(formData.textData.get('email').value)
+        );
+        tempFormData.append(
+          'password',
+          JSON.stringify(formData.textData.get('password').value)
+        );
+        this.sendToServer(
+          tempFormData,
+          environment.custom.SIGNUP_URL,
+          formData.formType
+        );
+        break;
+      }
+      case 'login': {
+        tempFormData.append(
+          'email',
+          JSON.stringify(formData.textData.get('email').value)
+        );
+        tempFormData.append(
+          'password',
+          JSON.stringify(formData.textData.get('password').value)
+        );
+        this.sendToServer(
+          tempFormData,
+          environment.custom.LOGIN_URL,
+          formData.formType
+        );
+        break;
+      }
+      case 'consumerReg': {
+        tempFormData.append(
+          'consumerName',
+          JSON.stringify(formData.textData.get('consumerName').value)
+        );
+        tempFormData.append(
+          'email',
+          JSON.stringify(formData.textData.get('email').value)
+        );
+        tempFormData.append(
+          'contactNumber',
+          JSON.stringify(formData.textData.get('contactNumber').value)
+        );
+        tempFormData.append(
+          'macAddress',
+          JSON.stringify(formData.textData.get('macAddress').value)
+        );
+        tempFormData.append('servedBy', JSON.stringify(this._servedBy));
+        this.sendToServer(
+          tempFormData,
+          environment.custom.REGISTRATION_URL,
+          formData.formType
+        );
+        break;
+      }
+      case 'admin': {
+        tempFormData.append('email', JSON.stringify(this._userEmail));
+        tempFormData.append(
+          'userName',
+          JSON.stringify(formData.textData.get('userName').value)
+        );
+        tempFormData.append(
+          'gender',
+          JSON.stringify(formData.textData.get('gender').value)
+        );
+        tempFormData.append(
+          'contactNumber',
+          JSON.stringify(formData.textData.get('contactNumber').value)
+        );
+        tempFormData.append(
+          'branch',
+          JSON.stringify(formData.textData.get('branch').value)
+        );
+        tempFormData.append(
+          'designation',
+          JSON.stringify(formData.textData.get('designation').value)
+        );
+        this.sendToServer(
+          tempFormData,
+          environment.custom.ADMIN_URL,
+          formData.formType
+        );
+        break;
+      }
     }
   }
 
-  switch (formData.formType) {
-    case 'signup': {
-      tempFormData.append('userName', JSON.stringify(formData.textData.get('userName').value));
-      tempFormData.append('email', JSON.stringify(formData.textData.get('email').value));
-      tempFormData.append('password', JSON.stringify(formData.textData.get('password').value));
-      this.sendToServer(tempFormData, environment.custom.SIGNUP_URL, formData.formType);
-      break;
-    }
-    case 'login': {
-      tempFormData.append('email', JSON.stringify(formData.textData.get('email').value));
-      tempFormData.append('password', JSON.stringify(formData.textData.get('password').value));
-      this.sendToServer(tempFormData, environment.custom.LOGIN_URL, formData.formType);
-      break;
-    }
-    case 'consumerReg': {
-      tempFormData.append('consumerName', JSON.stringify(formData.textData.get('consumerName').value));
-      tempFormData.append('email', JSON.stringify(formData.textData.get('email').value));
-      tempFormData.append('contactNumber', JSON.stringify(formData.textData.get('contactNumber').value));
-      tempFormData.append('macAddress', JSON.stringify(formData.textData.get('macAddress').value));
-      tempFormData.append('servedBy', JSON.stringify(this._servedBy));
-      this.sendToServer(tempFormData, environment.custom.REGISTRATION_URL, formData.formType);
-      break;
-    }
-    case 'admin': {
-      tempFormData.append('email', JSON.stringify(this._userEmail));
-      tempFormData.append('userName', JSON.stringify(formData.textData.get('userName').value));
-      tempFormData.append('gender', JSON.stringify(formData.textData.get('gender').value));
-      tempFormData.append('contactNumber', JSON.stringify(formData.textData.get('contactNumber').value));
-      tempFormData.append('branch', JSON.stringify(formData.textData.get('branch').value));
-      tempFormData.append('designation', JSON.stringify(formData.textData.get('designation').value));
-      this.sendToServer(tempFormData, environment.custom.ADMIN_URL, formData.formType);
-      break;
-    }
+  private sendToServer(formData: FormData, url: string, formType: string) {
+    this.httpClient
+      .post<{ data: string; status: string }>(url, formData, {
+        observe: 'response',
+      })
+      .subscribe((response) => {
+        if (response.body.status === 'ok') {
+          switch (formType) {
+            case 'consumerReg': {
+              this.showToast(
+                '<ion-icon name="checkbox-outline"></ion-icon> New user added successfully!'
+              );
+              this.route.navigate(['/']);
+              break;
+            }
+            case 'admin': {
+              this.showToast(
+                '<ion-icon name="checkbox-outline"></ion-icon> Data has been updated successfully!'
+              );
+              this.databaseService.fetchData();
+              this.route.navigate(['/menus/profile']);
+              break;
+            }
+            default: {
+              if (this.cookieService.check('email')) {
+                this.cookieService.deleteAll();
+              }
+              this.cookieService.set('email', response.body.data);
+              this.cookieService.set('isLoggedIn', 'true');
+              this.route.navigate(['/']);
+              break;
+            }
+          }
+        } else {
+          switch (formType) {
+            case 'signup': {
+              this.showToast(`${response.body.data} is already registered!`);
+              break;
+            }
+            case 'login': {
+              if (response.body.status === '!registered') {
+                this.showToast(`${response.body.data} isn't registered!`);
+              } else {
+                this.showToast("Password doesn't match!");
+              }
+              break;
+            }
+            case 'consumerReg': {
+              if (response.body.status === 'registered') {
+                this.redirectStatus.next(false);
+                this.showToast(
+                  `<ion-icon name="close"></ion-icon> \'${formData.get(
+                    'macAddress'
+                  )}\' is already registered to ${response.body.data}!`
+                );
+              } else {
+                this.showToast(
+                  '<ion-icon name="close"></ion-icon> Registration Failed!'
+                );
+              }
+              break;
+            }
+            case 'admin': {
+              if (response.body.status === '!modified') {
+              }
+              break;
+            }
+            default: {
+              this.showToast('Data update failed!');
+              break;
+            }
+          }
+        }
+      });
   }
- }
 
- private sendToServer(formData: FormData, url: string, formType: string) {
-  this.httpClient.post<{data: string, status: string}>(url, formData, {observe: 'response'}).subscribe(response => {
-
-    if (response.body.status === 'ok') {
-      switch (formType) {
-        case 'consumerReg': {
-          this.showToast('<ion-icon name="checkbox-outline"></ion-icon> New user added successfully!');
-          this.route.navigate(['/']);
-          break;
-        }
-        case 'admin': {
-          this.showToast('<ion-icon name="checkbox-outline"></ion-icon> Data has been updated successfully!');
-          this.databaseService.fetchData();
-          this.route.navigate(['/menus/profile']);
-          break;
-        }
-        default: {
-          if (this.cookieService.check('email')) {
-            this.cookieService.deleteAll();
-          }
-          this.cookieService.set('email', response.body.data);
-          this.cookieService.set('isLoggedIn', 'true');
-          this.route.navigate(['/']);
-          break;
-        }
-      }
-    } else {
-      switch (formType) {
-        case 'signup': {
-          this.showToast(`${response.body.data} is already registered!`);
-          break;
-        }
-        case 'login': {
-          if (response.body.status === '!registered') {
-            this.showToast(`${response.body.data} isn't registered!`);
-          } else {
-            this.showToast('Password doesn\'t match!');
-          }
-          break;
-        }
-        case 'consumerReg': {
-          if (response.body.status === 'registered') {
-            this.redirectStatus.next(false);
-            this.showToast(`<ion-icon name="close"></ion-icon> \'${formData.get('macAddress')}\' is already registered to ${response.body.data}!`);
-          } else {
-            this.showToast('<ion-icon name="close"></ion-icon> Registration Failed!');
-          }
-          break;
-        }
-        case 'admin': {
-          if (response.body.status === '!modified') {
-            // console.log('!modified');
-            // this.route.navigate(['/menus/profile']);
-          }
-          break;
-        }
-        default: {
-          this.showToast('Data update failed!');
-          break;
-        }
-      }
-    }
-  });
- }
-
-  public resetAllValidators() {
+  resetAllValidators() {
     this.isValidUserName = false;
     this.isNotValidUserName = false;
     this.isLoadingUserName = false;
@@ -540,13 +630,12 @@ export class FormService {
     this.isValidContactNumber = false;
     this.isNotValidContactNumber = false;
     this.isLoadingContactNumber = false;
-
   }
 
   private async showToast(msg: string) {
     const toast = await this.toastController.create({
       message: msg,
-      duration: 1500
+      duration: 1500,
     });
     toast.present();
   }

@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, Route, UrlSegment, Router } from '@angular/router';
+import { CanLoad, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class AuthGuard implements CanLoad  {
+export class AuthGuard implements CanLoad {
   constructor(private route: Router, private cookieService: CookieService) {}
-  canLoad(route: Route, segments: UrlSegment[]): boolean | Promise<boolean> | Observable<boolean> {
+  canLoad(): boolean | Promise<boolean> | Observable<boolean> {
     if (this.cookieService.get('isLoggedIn') === 'true') {
       return true;
     } else {
       this.route.navigate(['/auth']);
     }
   }
-
 }

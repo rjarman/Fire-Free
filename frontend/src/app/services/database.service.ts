@@ -1,31 +1,47 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { AdminDatum, ConsumerDatum, ViewerDataFormatter, NotificationDatum } from '../shared/viewerDataFormatter';
+import {
+  AdminDatum,
+  ConsumerDatum,
+  ViewerDataFormatter,
+  NotificationDatum,
+} from '../shared/viewerDataFormatter';
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastController } from '@ionic/angular';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DatabaseService {
-
   private _adminData = new Subject<ViewerDataFormatter<AdminDatum>>();
   private _consumerData = new Subject<ViewerDataFormatter<ConsumerDatum[]>>();
-  private _notificationData = new Subject<ViewerDataFormatter<NotificationDatum[]>>();
+  private _notificationData = new Subject<
+    ViewerDataFormatter<NotificationDatum[]>
+  >();
   private _notificationNumber = new Subject<number>();
 
-  constructor(private httpClient: HttpClient, private cookieService: CookieService, private toastController: ToastController) {
-  }
+  constructor(
+    private httpClient: HttpClient,
+    private cookieService: CookieService,
+    private toastController: ToastController
+  ) {}
 
   fetchData() {
-    this.httpClient.post<{adminData: AdminDatum, consumerData: ConsumerDatum[]}>(
-      environment.custom.VIEW_URL,
-      {email: this.cookieService.get('email')},
-      {observe: 'response'}).subscribe(response => {
-        this._adminData.next(new ViewerDataFormatter<AdminDatum>(response.body.adminData));
-        this._consumerData.next(new ViewerDataFormatter<ConsumerDatum[]>(response.body.consumerData));
+    this.httpClient
+      .post<{ adminData: AdminDatum; consumerData: ConsumerDatum[] }>(
+        environment.custom.VIEW_URL,
+        { email: this.cookieService.get('email') },
+        { observe: 'response' }
+      )
+      .subscribe((response) => {
+        this._adminData.next(
+          new ViewerDataFormatter<AdminDatum>(response.body.adminData)
+        );
+        this._consumerData.next(
+          new ViewerDataFormatter<ConsumerDatum[]>(response.body.consumerData)
+        );
       });
   }
 
@@ -39,16 +55,19 @@ export class DatabaseService {
 
   fetchNotification(isMenu = false) {
     if (isMenu) {
-      this.httpClient.post<{data: NotificationDatum[], status: string}>(
-        environment.custom.NOTIFICATION_URL,
-        {email: this.cookieService.get('email')},
-        {observe: 'response'}).subscribe(response => {
+      this.httpClient
+        .post<{ data: NotificationDatum[]; status: string }>(
+          environment.custom.NOTIFICATION_URL,
+          { email: this.cookieService.get('email') },
+          { observe: 'response' }
+        )
+        .subscribe((response) => {
           if (response.body.status === 'noData') {
             this.showToast('No Notifications!');
             this._notificationNumber.next(0);
           } else {
             let count = 0;
-            response.body.data.forEach(state => {
+            response.body.data.forEach((state) => {
               if (state.hardwareState === 'warning') {
                 count++;
               }
@@ -57,18 +76,23 @@ export class DatabaseService {
           }
         });
     } else {
-      this.httpClient.post<{data: NotificationDatum[], status: string}>(
-        environment.custom.NOTIFICATION_URL,
-        {email: this.cookieService.get('email')},
-        {observe: 'response'}).subscribe(response => {
+      this.httpClient
+        .post<{ data: NotificationDatum[]; status: string }>(
+          environment.custom.NOTIFICATION_URL,
+          { email: this.cookieService.get('email') },
+          { observe: 'response' }
+        )
+        .subscribe((response) => {
           if (response.body.status === 'noData') {
             this.showToast('No Notifications!');
             this._notificationNumber.next(0);
           } else {
-            this._notificationData.next(new ViewerDataFormatter<NotificationDatum[]>(response.body.data));
+            this._notificationData.next(
+              new ViewerDataFormatter<NotificationDatum[]>(response.body.data)
+            );
           }
         });
-      }
+    }
   }
 
   get notificationData(): Observable<ViewerDataFormatter<NotificationDatum[]>> {
@@ -80,10 +104,13 @@ export class DatabaseService {
   }
 
   setAsSolved(mAddress) {
-    this.httpClient.post<{data: string, status: string}>(
-      environment.custom.SET_SOLVED_NOTIFICATION_URL,
-      {macAddress: mAddress, email: this.cookieService.get('email')},
-      {observe: 'response'}).subscribe(response => {
+    this.httpClient
+      .post<{ data: string; status: string }>(
+        environment.custom.SET_SOLVED_NOTIFICATION_URL,
+        { macAddress: mAddress, email: this.cookieService.get('email') },
+        { observe: 'response' }
+      )
+      .subscribe((response) => {
         if (response.body.status === 'ok') {
           this.showToast(`${response.body.data} is marked as solved!`);
         } else {
@@ -95,7 +122,7 @@ export class DatabaseService {
   private async showToast(msg) {
     const toast = await this.toastController.create({
       message: msg,
-      duration: 1500
+      duration: 1500,
     });
     toast.present();
   }

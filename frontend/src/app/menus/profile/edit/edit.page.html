@@ -3,50 +3,99 @@
     <ion-buttons id="backBtn" slot="start">
       <ion-back-button defaultHref="/menus/profile"></ion-back-button>
     </ion-buttons>
-    
     <ion-buttons id="editBtn" slot="end">
-      <img src="../../../../assets/icon/plus-circle-solid.svg" alt="plus"  width="25px" height="25px" style="margin-right: 15px;" (click)="addImage()">
-      <img src="../../../../assets/icon/minus-circle-solid.svg" alt="minus" width="25px" height="25px" (click)="discardImage()">
+      <img
+        src="../../../../assets/icon/plus-circle-solid.svg"
+        alt="plus"
+        width="25px"
+        height="25px"
+        style="margin-right: 15px"
+        (click)="addImage()"
+      />
+      <img
+        src="../../../../assets/icon/minus-circle-solid.svg"
+        alt="minus"
+        width="25px"
+        height="25px"
+        (click)="discardImage()"
+      />
     </ion-buttons>
-    <img id="profileEdit" src="../../../assets/icon/profile-2.png" alt="fire-free" *ngIf="isDefault else notDefault">
+    <img
+      id="profileEdit"
+      src="../../../assets/icon/profile-2.png"
+      alt="fire-free"
+      *ngIf="isDefault else notDefault"
+    />
     <ng-template #notDefault>
-      <img id="profileEdit" src="{{defaultImagePath + imagePath}}" alt="fire-free">
+      <img
+        id="profileEdit"
+        src="{{defaultImagePath + imagePath}}"
+        alt="fire-free"
+      />
     </ng-template>
-
-
     <form [formGroup]="addImageForm">
-      <input formControlName="image" id="addImage" (change)="setImages($event)" hidden type="file" required/>
+      <input
+        formControlName="image"
+        id="addImage"
+        (change)="setImages($event)"
+        hidden
+        type="file"
+        required
+      />
     </form>
   </div>
-
-  <form [formGroup]="adminForm" (ngSubmit)="updateAdmin()" enctype="multipart/form-data">
+  <form
+    [formGroup]="adminForm"
+    (ngSubmit)="updateAdmin()"
+    enctype="multipart/form-data"
+  >
     <ion-card>
-      <ion-card-header>
-        User Details
-      </ion-card-header>
+      <ion-card-header> User Details </ion-card-header>
       <ion-card-content>
         <ion-item>
           <ion-label position="floating">Email Address</ion-label>
-          <ion-input id="email" type="email" disabled="true" placeholder="{{adminEmail}}"></ion-input>
+          <ion-input
+            id="email"
+            type="email"
+            disabled="true"
+            placeholder="{{adminEmail}}"
+          ></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Username</ion-label>
           <ion-row>
             <ion-col size="11">
-              <ion-input #userName (ionInput)="focused('userName', userName.value)" (ionBlur)="notFocused('userName', userName.value)" type="text" formControlName="userName" required></ion-input>
+              <ion-input
+                #userName
+                (ionInput)="focused('userName', userName.value)"
+                (ionBlur)="notFocused('userName', userName.value)"
+                type="text"
+                formControlName="userName"
+                required
+              ></ion-input>
             </ion-col>
             <ion-col size="1" class="align-self-end">
-              <div *ngIf="isLoadingUserName" style="margin-left: 26px;">
+              <div *ngIf="isLoadingUserName" style="margin-left: 26px">
                 <ion-spinner color="primary" name="crescent"></ion-spinner>
               </div>
-              <img *ngIf="isValidUserName" src="../../assets/icon/check-green-24dp.svg">
-              <img *ngIf="isNotValidUserName" src="../../assets/icon/close-red-24dp.svg">
+              <img
+                *ngIf="isValidUserName"
+                src="../../assets/icon/check-green-24dp.svg"
+              />
+              <img
+                *ngIf="isNotValidUserName"
+                src="../../assets/icon/close-red-24dp.svg"
+              />
             </ion-col>
           </ion-row>
         </ion-item>
         <ion-item>
           <ion-label>Gender</ion-label>
-          <ion-select value="gender" interface="action-sheet" formControlName="gender">
+          <ion-select
+            value="gender"
+            interface="action-sheet"
+            formControlName="gender"
+          >
             <ion-select-option value="Male">Male</ion-select-option>
             <ion-select-option value="Female">Female</ion-select-option>
             <ion-select-option value="Others">Others</ion-select-option>
@@ -56,23 +105,35 @@
           <ion-label position="floating">Contact Number</ion-label>
           <ion-row>
             <ion-col size="11">
-              <ion-input #contactNumber (ionInput)="focused('contactNumber', contactNumber.value)" (ionBlur)="notFocused('contactNumber', contactNumber.value)" type="text" formControlName="contactNumber" placeholder="+8801*********" required></ion-input>
+              <ion-input
+                #contactNumber
+                (ionInput)="focused('contactNumber', contactNumber.value)"
+                (ionBlur)="notFocused('contactNumber', contactNumber.value)"
+                type="text"
+                formControlName="contactNumber"
+                placeholder="+8801*********"
+                required
+              ></ion-input>
             </ion-col>
             <ion-col size="1" class="align-self-end">
-              <div *ngIf="isLoadingContactNumber" style="margin-left: 26px;">
+              <div *ngIf="isLoadingContactNumber" style="margin-left: 26px">
                 <ion-spinner color="primary" name="crescent"></ion-spinner>
               </div>
-              <img *ngIf="isValidContactNumber" src="../../assets/icon/check-green-24dp.svg">
-              <img *ngIf="isNotValidContactNumber" src="../../assets/icon/close-red-24dp.svg">
+              <img
+                *ngIf="isValidContactNumber"
+                src="../../assets/icon/check-green-24dp.svg"
+              />
+              <img
+                *ngIf="isNotValidContactNumber"
+                src="../../assets/icon/close-red-24dp.svg"
+              />
             </ion-col>
           </ion-row>
         </ion-item>
       </ion-card-content>
     </ion-card>
     <ion-card>
-      <ion-card-header>
-        Work Details
-      </ion-card-header>
+      <ion-card-header> Work Details </ion-card-header>
       <ion-card-content>
         <ion-item>
           <ion-label>Branch</ion-label>
@@ -90,27 +151,63 @@
         <ion-item id="designation">
           <ion-label>Designation</ion-label>
           <ion-select formControlName="designation">
-            <ion-select-option value="Director General" id="designation">Director General</ion-select-option>
+            <ion-select-option value="Director General" id="designation"
+              >Director General</ion-select-option
+            >
             <ion-select-option value="Director">Director</ion-select-option>
-            <ion-select-option value="Project Director">Project Director</ion-select-option>
-            <ion-select-option value="Deputy Director">Deputy Director</ion-select-option>
+            <ion-select-option value="Project Director"
+              >Project Director</ion-select-option
+            >
+            <ion-select-option value="Deputy Director"
+              >Deputy Director</ion-select-option
+            >
             <ion-select-option value="Principal">Principal</ion-select-option>
-            <ion-select-option value="Assistant Director">Assistant Director</ion-select-option>
-            <ion-select-option value="Vice Principal">Vice Principal</ion-select-option>
-            <ion-select-option value="Deputy Assistant Director">Deputy Assistant Director</ion-select-option>
+            <ion-select-option value="Assistant Director"
+              >Assistant Director</ion-select-option
+            >
+            <ion-select-option value="Vice Principal"
+              >Vice Principal</ion-select-option
+            >
+            <ion-select-option value="Deputy Assistant Director"
+              >Deputy Assistant Director</ion-select-option
+            >
             <ion-select-option value="Instructor">Instructor</ion-select-option>
-            <ion-select-option value="Senior Staff officer">Senior Staff officer</ion-select-option>
-            <ion-select-option value="PO cum Adjutant">PO cum Adjutant</ion-select-option>
-            <ion-select-option value="Mobilizing Officer">Mobilizing Officer</ion-select-option>
-            <ion-select-option value="Senior Station Officer">Senior Station Officer</ion-select-option>
-            <ion-select-option value="Asst Instructor">Asst Instructor</ion-select-option>
-            <ion-select-option value="Officer in charge(Control Room)">Officer in charge(Control Room)</ion-select-option>
-            <ion-select-option value="Store Officer">Store Officer</ion-select-option>
-            <ion-select-option value="Warehouse Inspector">Warehouse Inspector</ion-select-option>
-            <ion-select-option value="Station Officer">Station Officer</ion-select-option>
-            <ion-select-option value="Staff officer">Staff officer</ion-select-option>
-            <ion-select-option value="Junior Instructor">Junior Instructor</ion-select-option>
-            <ion-select-option value="Sub Officer">Sub Officer</ion-select-option>
+            <ion-select-option value="Senior Staff officer"
+              >Senior Staff officer</ion-select-option
+            >
+            <ion-select-option value="PO cum Adjutant"
+              >PO cum Adjutant</ion-select-option
+            >
+            <ion-select-option value="Mobilizing Officer"
+              >Mobilizing Officer</ion-select-option
+            >
+            <ion-select-option value="Senior Station Officer"
+              >Senior Station Officer</ion-select-option
+            >
+            <ion-select-option value="Asst Instructor"
+              >Asst Instructor</ion-select-option
+            >
+            <ion-select-option value="Officer in charge(Control Room)"
+              >Officer in charge(Control Room)</ion-select-option
+            >
+            <ion-select-option value="Store Officer"
+              >Store Officer</ion-select-option
+            >
+            <ion-select-option value="Warehouse Inspector"
+              >Warehouse Inspector</ion-select-option
+            >
+            <ion-select-option value="Station Officer"
+              >Station Officer</ion-select-option
+            >
+            <ion-select-option value="Staff officer"
+              >Staff officer</ion-select-option
+            >
+            <ion-select-option value="Junior Instructor"
+              >Junior Instructor</ion-select-option
+            >
+            <ion-select-option value="Sub Officer"
+              >Sub Officer</ion-select-option
+            >
             <ion-select-option value="Leader">Leader</ion-select-option>
             <ion-select-option value="Fireman">Fireman</ion-select-option>
             <ion-select-option value="Driver">Driver</ion-select-option>
@@ -119,7 +216,13 @@
         </ion-item>
       </ion-card-content>
     </ion-card>
-
-    <ion-button expand="full" size="large" fill="solid" type="submit" [disabled]="!adminForm.valid">Save</ion-button>
+    <ion-button
+      expand="full"
+      size="large"
+      fill="solid"
+      type="submit"
+      [disabled]="!adminForm.valid"
+      >Save</ion-button
+    >
   </form>
 </ion-content>
