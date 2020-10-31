@@ -61,10 +61,11 @@ export class PopoverPage implements OnInit {
             This application is specially designed for Fire-Free hardware project. Details of everything is given as the link below.
         </p>
         <p style="font-size: 12px; color: #B0B3B5;">Follow me on social media</p>
-        <img id="facebook" src="../../../assets/icon/facebook-brands.svg" alt="facebook" width="25px" height="25px" style="margin-right: 5px;">
-        <img id="blog" src="../../../assets/icon/blog-solid.svg" alt="blog" width="25px" height="25px" style="margin-right: 5px;">
-        <img id="github" src="../../../assets/icon/github-brands.svg" alt="git" width="25px" height="25px" style="margin-right: 5px;">
-        <img id="linkedin" src="../../../assets/icon/linkedin-brands.svg" alt="linkedin" width="25px" height="25px">
+        <img id="github" src="../../../assets/icon/github.svg" alt="git" width="25px" height="25px" style="margin-right: 5px;">
+        <img id="gitkraken" src="../../../assets/icon/gitkraken.svg" alt="gitkraken" width="25px" height="25px" style="margin-right: 5px;">
+        <img id="linkedin" src="../../../assets/icon/linkedin.svg" alt="linkedin" width="25px" height="25px" style="margin-right: 5px;">
+        <img id="blog" src="../../../assets/icon/blog.svg" alt="blog" width="25px" height="25px" style="margin-right: 5px;">
+        <img id="facebook" src="../../../assets/icon/facebook.svg" alt="facebook" width="25px" height="25px">
     </div>`;
     this.setSocialListeners();
     await about.present();
@@ -95,6 +96,9 @@ export class PopoverPage implements OnInit {
     });
     document.getElementById('blog').addEventListener('click', (e: Event) => {
       window.open(environment.custom.SOCIAL.BLOG);
+    });
+    document.getElementById('gitkraken').addEventListener('click', (e: Event) => {
+      window.open(environment.custom.SOCIAL.GITKRAKEN);
     });
     document.getElementById('github').addEventListener('click', (e: Event) => {
       window.open(environment.custom.SOCIAL.GIT);

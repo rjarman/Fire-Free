@@ -14,9 +14,10 @@ export const environment = {
     SET_SOLVED_NOTIFICATION_URL: 'http://localhost:3000/RklSRS1GUkVF=solvedNotification',
     SOCIAL: {
       FACEBOOK: 'https://facebook.com/rafsunjany.arman.1',
-      BLOG: 'https://cs-mingle.com',
+      BLOG: 'https://heaplinker.com',
       GIT: 'https://github.com/rjarman/Fire-Free',
-      LINKEDIN: 'https://linkedin.com'
+      LINKEDIN: 'https://linkedin.com/in/rafsun-jany-arman/',
+      GITKRAKEN: 'https://timelines.gitkraken.com/timeline/eb34496854364cfbb787a7ca282c9af1'
     },
     PATH: {
       ADMIN_PATH: 'http://localhost:3000/adminsPhotos/',
