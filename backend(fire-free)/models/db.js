@@ -1,7 +1,7 @@
 const mongdb = require('mongodb');
 const credentials = require('dotenv');
 credentials.config();
-const DATABASE_URL = process.env.DATABASE_URL_OFFLINE;
+const DATABASE_URL = process.env.DATABASE_URL_ONLINE;
 
 const mongodbClient = mongdb.MongoClient;
 

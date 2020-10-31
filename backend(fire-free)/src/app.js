@@ -26,7 +26,7 @@ const dataStructures = require('../models/dataStructures');
 const databaseFunction = require('../models/db');
 const encryption_decryption = require('../miscellaneous/encryption');
 const mongodbClient = mongodb.MongoClient;
-const DATABASE_URL = process.env.DATABASE_URL_OFFLINE;
+const DATABASE_URL = process.env.DATABASE_URL_ONLINE;
 
 
 app.use(bodyParser.json());
