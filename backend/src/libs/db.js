@@ -1,5 +1,5 @@
 require('dotenv').config();
-const DATABASE_URL = process.env.DATABASE_URL_ONLINE;
+const DATABASE_URL = process.env.DATABASE_URL;
 const mongodbClient = require('mongodb').MongoClient;
 
 const databaseFunction = {

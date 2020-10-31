@@ -20,7 +20,7 @@ const util = require('./util');
 const databaseFunction = require('./db');
 const crypto = require('./crypto');
 const mongodbClient = require('mongodb').MongoClient;
-const DATABASE_URL = process.env.DATABASE_URL_ONLINE;
+const DATABASE_URL = process.env.DATABASE_URL;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
