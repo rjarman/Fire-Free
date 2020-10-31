@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { RegularExpressionList } from '../shared/validator';
+import { RegularExpressionList } from '../types';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { FormDataFormatter } from '../shared/formDataFormatter';
+import { FormDataFormatter } from '../types';
 import { Subject, Observable } from 'rxjs';
 import { DatabaseService } from './database.service';
 

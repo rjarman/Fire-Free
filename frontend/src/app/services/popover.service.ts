@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { PopoverPage } from '../menus/popover/popover.page';
-import { CommonValues, Popover } from '../shared/popoverData';
+import { CommonValues, Popover } from '../types';
 
 @Injectable({
   providedIn: 'root',

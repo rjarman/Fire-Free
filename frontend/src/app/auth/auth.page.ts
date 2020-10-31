@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { RegularExpressionList } from '../shared/validator';
+import { RegularExpressionList } from '../types';
 import { FormService } from '../services/form.service';
-import { FormDataFormatter } from '../shared/formDataFormatter';
+import { FormDataFormatter } from '../types';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PopoverService } from '../services/popover.service';
-import { Popover, CommonValues } from '../shared/popoverData';
+import { Popover, CommonValues } from '../types';
 import { DatabaseService } from '../services/database.service';
 
 @Component({

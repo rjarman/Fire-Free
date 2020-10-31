@@ -6,7 +6,7 @@ import {
   ConsumerDatum,
   ViewerDataFormatter,
   NotificationDatum,
-} from '../shared/viewerDataFormatter';
+} from '../types';
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastController } from '@ionic/angular';

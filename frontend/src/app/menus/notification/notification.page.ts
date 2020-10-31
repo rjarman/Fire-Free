@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { DatabaseService } from 'src/app/services/database.service';
-import { NotificationDatum } from 'src/app/shared/viewerDataFormatter';
+import { NotificationDatum } from 'src/app/types';
 import { environment } from 'src/environments/environment';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';

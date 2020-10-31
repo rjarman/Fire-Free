@@ -3,7 +3,7 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database.service';
 import { environment } from 'src/environments/environment';
-import { OpacityStyle, TopStyle } from 'src/app/shared/style';
+import { OpacityStyle, TopStyle } from 'src/app/styles';
 
 @Component({
   selector: 'app-profile',

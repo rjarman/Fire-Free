@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { RegularExpressionList } from 'src/app/shared/validator';
+import { RegularExpressionList } from 'src/app/types';
 import { ToastController } from '@ionic/angular';
 import { FormService } from 'src/app/services/form.service';
-import { FormDataFormatter } from 'src/app/shared/formDataFormatter';
+import { FormDataFormatter } from 'src/app/types';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 

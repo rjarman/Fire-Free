@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { NotificationDatum } from 'src/app/shared/viewerDataFormatter';
+import { NotificationDatum } from 'src/app/types';
 import { Subject, Observable } from 'rxjs';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ToastController } from '@ionic/angular';

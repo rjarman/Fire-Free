@@ -1,8 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { RegularExpressionList } from 'src/app/shared/validator';
+import { RegularExpressionList } from 'src/app/types';
 import { FormService } from 'src/app/services/form.service';
-import { FormDataFormatter } from 'src/app/shared/formDataFormatter';
+import { FormDataFormatter } from 'src/app/types';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
