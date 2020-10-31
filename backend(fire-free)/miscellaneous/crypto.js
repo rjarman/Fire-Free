@@ -2,10 +2,9 @@ const crypto = require('crypto');
 const hashAlgorithm = 'sha256';
 const hashEncodingBase = 'base64';
 const cipherAlgorithm = 'aes-256-ctr';
-let key = 'f8674ff5ab6d971df2abc627b90e60628be929ec'
 
+let key = 'f8674ff5ab6d971df2abc627b90e60628be929ec';
 key = crypto.createHash(hashAlgorithm).update(String(key)).digest(hashEncodingBase).substr(0, 32);
-
 const encryption_decryption = {
     encryption: (data) => {
         data = Buffer.from(data);

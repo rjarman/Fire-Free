@@ -1,5 +1,3 @@
-const encryption_decryption = require('../miscellaneous/crypto');
-
 module.exports = {
     Signup: function signup (data) {
         this.imagePath = data.imagePath[0];
@@ -9,7 +7,7 @@ module.exports = {
         this.contactNumber = data.contactNumber;
         this.designation = data.designation;
         this.gender = data.gender;
-        this.password = JSON.stringify(encryption_decryption.encryption(data.password));
+        this.password = JSON.stringify(require('../miscellaneous/crypto').encryption(data.password));
     },
     Login: function login(data) {
         this.email = data.email;

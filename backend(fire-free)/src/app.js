@@ -11,22 +11,17 @@
  *                                                          
  */
 
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const formidable = require('formidable');
-const cors = require('cors');
-const mongodb = require('mongodb');
 const fileSystem = require('fs');
-const dotenv = require('dotenv');
-dotenv.config();
-
 const app = express();
-const dataStructures = require('../models/util');
+const util = require('../models/util');
 const databaseFunction = require('../models/db');
-const encryption_decryption = require('../miscellaneous/crypto');
-const mongodbClient = mongodb.MongoClient;
+const crypto = require('../miscellaneous/crypto');
+const mongodbClient = require('mongodb').MongoClient;
 const DATABASE_URL = process.env.DATABASE_URL_ONLINE;
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
@@ -45,14 +40,12 @@ app.get('/', (req, res) => {
     res.send('<h1>Welcome to Rufsun\'s universe!</h1>');
 });
 
-
-app.use(cors({
+app.use(require('cors')({
     origin: '*',
     credentials: true
 }));
 
-var publicDir = require('path').join(__dirname,'../public/');
-// console.log(publicDir);
+const publicDir = require('path').join(__dirname,'../public/');
 app.use(express.static(publicDir));
 
 /***
@@ -70,18 +63,10 @@ app.use(express.static(publicDir));
 app.post('/RklSRS1GUkVF', (req, res, next) => {
     console.log('Date:' + new Date());
     console.log((Object.keys(req.body)[0]));
-    // console.log(JSON.parse();
-    // localStorage.addDataToLocalStorage('NodeData', Object.keys(req.body)[0]);
-    // localStorage.
-
     res.send('200');
-    // res.send('warning');
 });
 
 app.get('/RklSRS1GUkVF=2', (req, res, next) => {
-    
-
-    // data = JSON.parse(localStorage.getData('NodeData'));
      data = {
         "mq2":{
            "hydrogen":"0.00",
@@ -120,7 +105,6 @@ app.get('/RklSRS1GUkVF=2', (req, res, next) => {
  */
 
 app.post('/RklSRS1GUkVF=login', (req, res, next) => {
-
     var form = new formidable.IncomingForm();
     var count = 0;
     var data = {};
@@ -135,7 +119,7 @@ app.post('/RklSRS1GUkVF=login', (req, res, next) => {
                 break;
         }
         if (count === 0 && Object.keys(data).length >= 2) {
-            var loginData = new dataStructures.Login(data);
+            var loginData = new util.Login(data);
             mongodbClient.connect(DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
                 if(err){
                     console.log(`connection failed to "${process.env.DATABASE_NAME}!"`);
@@ -157,7 +141,7 @@ app.post('/RklSRS1GUkVF=login', (req, res, next) => {
                                 status: '!registered'
                             });
                         }else {
-                            if(encryption_decryption.decryption(Buffer.from(JSON.parse(result[0].password))) === loginData.password){
+                            if(crypto.decryption(Buffer.from(JSON.parse(result[0].password))) === loginData.password){
                                 res.status(200).json({
                                     data: loginData.email,
                                     status: 'ok'
@@ -192,7 +176,6 @@ app.post('/RklSRS1GUkVF=login', (req, res, next) => {
  */
 
 app.post('/RklSRS1GUkVF=signup', (req, res, next) => {
-
     var form = new formidable.IncomingForm();
     var count = 0;
     var data = {};
@@ -220,7 +203,7 @@ app.post('/RklSRS1GUkVF=signup', (req, res, next) => {
                 break;
         }
         if (count === 0 && Object.keys(data).length >= 8) {
-            var signupData = new dataStructures.Signup(data);
+            var signupData = new util.Signup(data);
             console.log(signupData);
 
             mongodbClient.connect(DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
@@ -271,8 +254,6 @@ app.post('/RklSRS1GUkVF=signup', (req, res, next) => {
  */
 
 app.post('/RklSRS1GUkVF=registration', (req, res, next) => {
-    // console.log('registrations data: ' + req.body);
-
     var form = new formidable.IncomingForm();
     var count = 0;
     var data = {};
@@ -302,8 +283,7 @@ app.post('/RklSRS1GUkVF=registration', (req, res, next) => {
                 break;
         }
         if (count === 0 && Object.keys(data).length >= 6) {
-            var consumer = new dataStructures.Consumer(data);
-
+            var consumer = new util.Consumer(data);
             mongodbClient.connect(DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
                 if(err){
                     console.log(`connection failed to "${process.env.DATABASE_NAME}!"`);
@@ -362,7 +342,6 @@ app.post('/RklSRS1GUkVF=admin', (req, res, next) => {
         newImageName = file.name;
     });
     form.on('field', (fieldName, fieldValue) => {
-        // console.log(`${fieldName} =====> ${fieldValue}`);
         switch (fieldName) {
             case 'imagePath':
                 Object.assign(data, {imagePath: JSON.parse(fieldValue)});
@@ -387,7 +366,7 @@ app.post('/RklSRS1GUkVF=admin', (req, res, next) => {
                 break;
         }
         if (count === 0 && Object.keys(data).length >= 7) {
-            var admin = new dataStructures.Admin(data);
+            var admin = new util.Admin(data);
             mongodbClient.connect(DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
                 if(err){
                     console.log(`connection failed to "${process.env.DATABASE_NAME}!"`);
@@ -484,9 +463,9 @@ app.post('/RklSRS1GUkVF=viewerData', (req, res, next) => {
                 console.log(`"${req.body.email}" doesn't match with the API key!`);
             }else{
                 consumerCollection.find({servedBy: {$eq: adminData[0].email}}).toArray((err, consumerData) => {
-                    Object.assign(viewerData.adminData, new dataStructures.Admin(adminData[0]));
+                    Object.assign(viewerData.adminData, new util.Admin(adminData[0]));
                     for(var data of consumerData) {
-                        viewerData.consumerData.push(new dataStructures.ConsumerViewer(data));
+                        viewerData.consumerData.push(new util.ConsumerViewer(data));
                     }
                     res.status(200).json({
                         adminData: viewerData.adminData,
@@ -563,7 +542,7 @@ app.post('/RklSRS1GUkVF=notification', (req, res) => {
                                     if (err) {
                                         console.log(err);
                                     } else {
-                                        _notificationDatum(new dataStructures.Notification(tempNotificationDatum.hardwareState, tempNotificationDatum.solvedBy, consumerData[0], hardwareData[0]));
+                                        _notificationDatum(new util.Notification(tempNotificationDatum.hardwareState, tempNotificationDatum.solvedBy, consumerData[0], hardwareData[0]));
                                     }
                                 });
                             }
@@ -637,28 +616,6 @@ app.post('/RklSRS1GUkVF=solvedNotification', (req, res) => {
     });
 
     });
-});
-
-/***
- *     _______           _______ _________ _______  _______ 
- *    (  ____ \|\     /|(  ____ \\__   __/(  ____ \(       )
- *    | (    \/( \   / )| (    \/   ) (   | (    \/| () () |
- *    | (_____  \ (_) / | (_____    | |   | (__    | || || |
- *    (_____  )  \   /  (_____  )   | |   |  __)   | |(_)| |
- *          ) |   ) (         ) |   | |   | (      | |   | |
- *    /\____) |   | |   /\____) |   | |   | (____/\| )   ( |
- *    \_______)   \_/   \_______)   )_(   (_______/|/     \|
- *                                                          
- */
-
-process.on('exit', (code) => {
-    databaseFunction.clientCloser.close();
-    console.log(`exit on status: '${code}'`);
-});
-
-process.on('SIGINT', () => {
-    console.log("interrupted by external signal!");
-    process.exit();
 });
 
 module.exports = app;

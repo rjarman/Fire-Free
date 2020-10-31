@@ -1,9 +1,6 @@
-const mongdb = require('mongodb');
-const credentials = require('dotenv');
-credentials.config();
+require('dotenv').config();
 const DATABASE_URL = process.env.DATABASE_URL_ONLINE;
-
-const mongodbClient = mongdb.MongoClient;
+const mongodbClient = require('mongodb').MongoClient;
 
 const databaseFunction = {
     clientCloser: null,
@@ -34,7 +31,6 @@ function sendData(databaseName, collectionName, data){
                 console.log(`added to the database "${databaseName}" under collection "${collectionName}", successfully!`);
             }
         });
-        // client.close();
         databaseFunction.clientCloser = client;
     });
 }
