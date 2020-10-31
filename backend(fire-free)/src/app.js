@@ -406,13 +406,16 @@ app.post('/RklSRS1GUkVF=admin', (req, res, next) => {
                     }else{
                         var adminPhotosPath = publicDir + 'adminsPhotos\\';
                         fileSystem.readdir(adminPhotosPath, (err, imageList) => {
-                            for(var imageName of imageList) {
-                                if (imageName.split(admin.email.split('@')[0])[0] === '' && imageName !== newImageName && newImageName !== '') {
-                                    fileSystem.unlink(adminPhotosPath + imageName,(err) => {
-                                        if (err) {
-                                            console.log(err);
-                                        }
-                                    });
+                            console.log(imageList)
+                            if (imageList) {
+                                for(var imageName of imageList) {
+                                    if (imageName.split(admin.email.split('@')[0])[0] === '' && imageName !== newImageName && newImageName !== '') {
+                                        fileSystem.unlink(adminPhotosPath + imageName,(err) => {
+                                            if (err) {
+                                                console.log(err);
+                                            }
+                                        });
+                                    }
                                 }
                             }
                         });
