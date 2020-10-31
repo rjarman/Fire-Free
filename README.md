@@ -26,7 +26,7 @@ The hardware part has the capability to send coordinates and the **MQ-2** sensor
 - Make an **API** which will be the middleware between hardware, software and database.
 - Build a complete library with **C++** for the whole PCB.
 - Make all the password related works encrypted.
-- Design **NoSQL** schemas for every database for **mongodb** but connect them with mac-address as primary key.
+- Design **NoSQL** schemas for every database for **mongodb** and connect them with mac-address as primary key.
 
 #### Disadvantages
 
